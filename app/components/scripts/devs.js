@@ -351,9 +351,9 @@ var Graph = function (e, w, p, n, m) {
 
   var init = function (m) {
     model = JSON.parse(m);
-//    build_save_modal();
-//    build_project_modal();
-//    build_conditions_modal();
+    build_save_modal();
+    build_project_modal();
+    build_conditions_modal();
     build_graph(model.structure);
     paper.on('cell:pointerdblclick', onClick);
     graph.on('change:source change:target', onCreateLink);

@@ -21,13 +21,10 @@ angular.module('artisStudio.model', ['ngRoute'])
       $scope.model = data.data;
     });
 
-
-
-
 }])
 
-.directive('graph', ['$window', '$timeout', '$q', 'Joint',
-  function ($window, $timeout, $q, Joint) {
+.directive('graph', ['$window', '$document', '$timeout', '$q', 'Joint',
+  function ($window, $document, $timeout, $q, Joint) {
     return {
       restrict: 'EA',
       scope: {
@@ -43,9 +40,7 @@ angular.module('artisStudio.model', ['ngRoute'])
           }, true);
           scope.render = function (data) {
             if (data) {
-
-              new Graph(element[0], '', '', '', data.definition);
-
+              $document[0].graph = new Graph(element[0], data.workspace_name, data.project_name, data.name, data.definition);
             }
           }
         });

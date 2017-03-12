@@ -27,10 +27,11 @@
     <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
     <script type="text/javascript" src="bower_components/backbone/backbone-min.js"></script>
+    <script type="text/javascript" src="bower_components/jsoneditor/dist/jsoneditor.min.js"></script>
 </head>
 <body>
 <div ng-include="'views/header/header.html'" class="no-animate"></div>
-<div class="container" ng-view></div>
+<div class="container" id="main" ng-view></div>
 <div ng-include="'views/footer/footer.html'" class="no-animate"></div>
 
 <!-- In production use:
