@@ -1,0 +1,35 @@
+<br>
+<div class="row.vertical-offset-100" ng-controller="WorkspacesCtrl">
+    <div class="col-md-8.col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Workspaces</h3>
+            </div>
+            <div class="panel-body">
+                <a class="btn btn-primary btn-md active" href='/workspaces/create'>
+                    <i class="glyphicon glyphicon-plus" translate>Create</i>
+                </a>
+                <br>
+                <br>
+                <table class="table">
+                    <tr>
+                        <th translate>Name</th>
+                        <th translate>Actions</th>
+                    </tr>
+                    <tr ng-repeat="workspace in workspaces">
+                        <td>{{workspace.name}}</td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-edit" ng-click="edit(workspace._id)"></span>
+                        </td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-stats" ng-click="projects(workspace._id, workspace.name)"></span>
+                        </td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-remove" ng-click="delete(workspace._id)"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

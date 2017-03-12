@@ -2,13 +2,14 @@
 
 // Declare app level module which depends on views, and components
 var myApp = angular.module('artisStudio', [
-  'ngRoute', 'ngLocale', 'gettext', 'tmh.dynamicLocale', 'LocalStorageModule',
-  'artisStudio.home', 'artisStudio.login', 'artisStudio.header', 'artisStudio.footer', 'artisStudio.version'
+  'ngRoute', 'ngLocale', 'gettext', 'ui-notification', 'tmh.dynamicLocale', 'LocalStorageModule', 'ngProgress',
+  'artisStudio.home', 'artisStudio.login', 'artisStudio.header', 'artisStudio.footer', 'artisStudio.version',
+  'artisStudio.workspaces', 'artisStudio.projects', 'artisStudio.models', 'artisStudio.model'
 ])
 
   .config(['$locationProvider', '$routeProvider', '$httpProvider',
     function ($locationProvider, $routeProvider, $httpProvider) {
-      $locationProvider.hashPrefix('!');
+//      $locationProvider.hashPrefix('!');
       $httpProvider.interceptors.push('TokenInterceptor');
       $routeProvider.otherwise({redirectTo: '/login'});
     }])

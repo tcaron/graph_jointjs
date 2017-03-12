@@ -1,0 +1,35 @@
+<br>
+<div class="row.vertical-offset-100" ng-controller="ProjectsCtrl">
+    <div class="col-md-8.col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Projects [{{workspace}}]</h3>
+            </div>
+            <div class="panel-body">
+                <a class="btn btn-primary btn-md active" href='/projects/create'>
+                    <i class="glyphicon glyphicon-plus" translate>Create</i>
+                </a>
+                <br>
+                <br>
+                <table class="table">
+                    <tr>
+                        <th translate>Name</th>
+                        <th translate>Actions</th>
+                    </tr>
+                    <tr ng-repeat="project in projects">
+                        <td>{{project.name}}</td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-edit" ng-click="edit(project._id)"></span>
+                        </td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-stats" ng-click="models(project._id, project.name)"></span>
+                        </td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-remove" ng-click="delete(project._id)"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

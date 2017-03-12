@@ -1,54 +1,74 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="artisStudio" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="artisStudio" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="artisStudio" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="artisStudio" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html lang="en" ng-app="artisStudio" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="artisStudio" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="artisStudio" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="artisStudio" class="no-js"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Artis studio</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="views/footer.css">
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Artis studio</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="stylesheets/app.css">
+    <link rel="stylesheet" href="views/footer.css">
+    <link rel="stylesheet" href="bower_components/joint/dist/joint.min.css">
+    <link rel="stylesheet" href="stylesheets/shapes.devs.css">
+    <link rel="stylesheet" href="bower_components/jsoneditor/dist/jsoneditor.min.css">
+
+    <script type="text/javascript" src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="bower_components/backbone/backbone-min.js"></script>
 </head>
 <body>
-  <div ng-include="'views/header/header.html'" class="no-animate"></div>
-  <div class="container" ng-view></div>
-  <div ng-include="'views/footer/footer.html'" class="no-animate"></div>
+<div ng-include="'views/header/header.html'" class="no-animate"></div>
+<div class="container" ng-view></div>
+<div ng-include="'views/footer/footer.html'" class="no-animate"></div>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script type="text/javascript" src="bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
-  <script type="text/javascript" src="bower_components/angular-gettext/dist/angular-gettext.min.js"></script>
-  <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_en.js"></script>
-  <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_fr.js"></script>
-  <script type="text/javascript" src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-gettext/dist/angular-gettext.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-i18n/angular-locale_en.js"></script>
+<script type="text/javascript" src="bower_components/angular-i18n/angular-locale_fr.js"></script>
+<script type="text/javascript" src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script type="text/javascript"
+        src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-switch/angular-ui-switch.js"></script>
+<script type="text/javascript" src="bower_components/ngprogress/build/ngprogress.min.js"></script>
 
-  <!-- Views -->
-  <script src="app.js"></script>
-  <script src="views/login/login.js"></script>
-  <script src="views/home/home.js"></script>
-  <script src="views/header/header.js"></script>
-  <script src="views/footer/footer.js"></script>
+<!-- Views -->
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="views/login/login.js"></script>
+<script type="text/javascript" src="views/home/home.js"></script>
+<script type="text/javascript" src="views/header/header.js"></script>
+<script type="text/javascript" src="views/footer/footer.js"></script>
+<script type="text/javascript" src="views/workspaces/workspaces.js"></script>
+<script type="text/javascript" src="views/projects/projects.js"></script>
+<script type="text/javascript" src="views/models/models.js"></script>
+<script type="text/javascript" src="views/models/model.js"></script>
 
-  <!-- Components -->
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+<!-- Components -->
+<script type="text/javascript" src="components/version/version.js"></script>
+<script type="text/javascript" src="components/version/version-directive.js"></script>
+<script type="text/javascript" src="components/version/interpolate-filter.js"></script>
 
-  <!-- Services -->
-  <script type="text/javascript" src="components/services/auth.factory.js"></script>
-  <script type="text/javascript" src="components/services/user.preferences.js"></script>
+<!-- Services -->
+<script type="text/javascript" src="components/services/auth.factory.js"></script>
+<script type="text/javascript" src="components/services/data.factory.js"></script>
+<script type="text/javascript" src="components/services/joint.factory.js"></script>
+<script type="text/javascript" src="components/services/user.preferences.js"></script>
 
 </body>
 </html>

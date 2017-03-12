@@ -26,6 +26,7 @@
     "jsoneditor": "5.5.11",
     "moment": "~2.8.0",
     "moment-timezone": "~0.5.3",
-    "angular-local-storage": "^0.2.7"
+    "angular-local-storage": "^0.2.7",
+    "ngprogress": "^1.1.2"
   }
 }

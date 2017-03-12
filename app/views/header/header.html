@@ -16,7 +16,7 @@
             <div ng-if="showMenu">
                 <!-- user header -->
                 <ul class="nav navbar-nav" ng-if="role !=='admin'">
-                    <li ng-class="{active:isActive('/workspaces')}"><a ng-href="/workspaces" translate>Workspaces</a></li>
+                    <li ng-class="{active:isActive('/workspaces')}"><a ng-href="#/workspaces" translate>Workspaces</a></li>
                 </ul>
                 <!-- admin header -->
                 <ul class="nav navbar-nav" ng-if="role =='admin'">
@@ -30,7 +30,7 @@
                             <div class="user-info-dropdown" tr-href="/config/user">
                                 <a  class="user-preferences"><span class="fa fa-cog"></span></a>
                                 <div class="user-details">{{ user.firstName }} {{ user.lastName }}</div>
-                                <span>{{ currentFarm.name }} <span class="badge badge-default" style="top:-1px">{{ role }}</span></span>
+                                <span class="badge badge-default" style="top:-1px">{{ role }}</span>
                             </div>
                             <a ng-click="logout()" class="btn btn-default pull-right" style="margin: 5px 5px 0 0" translate>Sign out</a>
                         </ul>

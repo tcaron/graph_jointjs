@@ -1,0 +1,32 @@
+<br>
+<div class="row.vertical-offset-100" ng-controller="ModelsCtrl">
+    <div class="col-md-8.col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Models [{{project}}]</h3>
+            </div>
+            <div class="panel-body">
+                <a class="btn btn-primary btn-md active" href='/models/create'>
+                    <i class="glyphicon glyphicon-plus" translate>Create</i>
+                </a>
+                <br>
+                <br>
+                <table class="table">
+                    <tr>
+                        <th translate>Name</th>
+                        <th translate>Actions</th>
+                    </tr>
+                    <tr ng-repeat="model in models">
+                        <td>{{model.name}}</td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-edit" ng-click="edit(model._id)"></span>
+                        </td>
+                        <td style="width: 50px">
+                            <span class="glyphicon glyphicon-remove" ng-click="delete(model._id)"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

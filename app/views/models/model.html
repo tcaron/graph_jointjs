@@ -1,0 +1,32 @@
+<br>
+<div class="row.vertical-offset-100" ng-controller="ModelCtrl">
+    <div class="col-md-8.col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Model [{{model.name}}]
+                    <a class="btn btn-warning btn-md active"
+                       style="float: right; margin-top: 0.5em; margin-right: 0.5em"
+                       href="javascript:this.document.graph.save();" translate>Save</a>
+                    <a class="btn btn-primary btn-md active"
+                       style="float: right; margin-top: 0.5em; margin-right: 0.5em"
+                       href="javascript:this.document.graph.up();" translate>Up</a>
+                    <a class="btn btn-success btn-md active"
+                       style="float: right; margin-top: 0.5em; margin-right: 0.5em"
+                       href="javascript:this.document.graph.conditions();" translate>Conditions</a>
+                    <a class="btn btn-success btn-md active"
+                       style="float: right; margin-top: 0.5em; margin-right: 0.5em"
+                       href="javascript:this.document.graph.dynamics();" translate>Dynamics</a>
+                    <a class="btn btn-success btn-md active"
+                       style="float: right; margin-top: 0.5em; margin-right: 0.5em"
+                       href="javascript:this.document.graph.views();" translate>Views</a>
+                    <a class="btn btn-success btn-md active"
+                       style="float: right; margin-top: 0.5em; margin-right: 0.5em"
+                       href="javascript:this.document.graph.project();" translate>Project</a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="paper" id="#paper" graph data="model"></div>
+            </div>
+        </div>
+    </div>
+</div>
