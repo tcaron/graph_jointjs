@@ -1,25 +1,159 @@
-/* app css stylesheet */
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px!important;
+  background: url(../images/wallpapers/wallpaper-corn-3.jpeg) no-repeat center fixed;
+  background-size:cover;
+  -webkit-background-size: cover;
+  padding-right: 0px !important
 }
 
-.menu:before {
-  content: "[";
+a:hover{
+  text-decoration: none;
 }
 
-.menu:after {
-  content: "]";
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+  cursor: pointer;
 }
 
-.menu > li {
-  display: inline;
+.modal-open {
+  /* http://stackoverflow.com/questions/32675849/screen-zooms-in-when-a-bootstrap-modal-is-opened-on-ios-9-safari */
+  overflow-y: auto;
 }
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.modal-header-danger {
+  color:#fff;
+  padding:9px 15px;
+  border-bottom:1px solid #eee;
+  background-color: #d9534f;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.modal-header-normal {
+  color:#fff;
+  padding:9px 15px;
+  border-bottom:1px solid #eee;
+  background-color: #5CB85C;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.panel-footer.panel-footer-red {
+  background: #F2DEDE;
+  color: darkred;
+}
+
+body > .container {
+  padding: 70px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+code {
+  font-size: 80%;
+}
+
+input[type="radio"] {
+  margin:0px 5px 0px 10px;
+}
+
+.panel-body-no-padding  {
+  padding: 0px;
+}
+
+pre {
+  white-space: normal;
+}
+
+.ng-submitted .ng-invalid{
+  border-color: #a94442;
+  border-width: 2px;
+  box-shadow:none;
+}
+
+.table-no-margin {
+  margin: 0px;
+}
+
+.pagination {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.leaflet-popup-content {
+  margin : 5px;
+}
+
+.primary-menu {
+  padding-top: 0px;
+  width: 250px;
+}
+
+.user-info-dropdown {
+  background-color: #E7E7E7;
+  color: #555555;
+  padding: 5px 15px 10px 15px;
+  font-size: 14px;
+}
+
+.user-info-dropdown .user-details {
+  font-size: 20px;
+}
+
+.user-info-dropdown .user-preferences {
+  float: right;
+  font-size: 20px;
+  color: #555555;
+}
+.user-info-dropdown .user-preferences:hover {
+  color: #343434;
+}
+
+.removeMargins {
+  margin: -15px;
+}
+
+button:focus {
+  outline:0 !important;
+}
+button:active {
+  outline: none !important;
+}
+
+@media screen and (max-width: 1200px)
+{
+  .history-day {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 768px)
+{
+  .sequence-list {
+    white-space: nowrap;
+    overflow-x: scroll;
+    height:30px;
+  }
+
+  .history-day {
+    width: auto;
+  }
 }

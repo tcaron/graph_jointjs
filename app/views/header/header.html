@@ -1,0 +1,49 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="padding-top: 1px" href="/">
+                <img class="navbar-logo" style="display: inline" src="/images/logo-48x48.png"/>
+                <span class="navbar-brand-label">Artis studio</span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <div ng-if="showMenu">
+                <!-- user header -->
+                <ul class="nav navbar-nav" ng-if="role !=='admin'">
+                    <li ng-class="{active:isActive('/workspaces')}"><a ng-href="/workspaces" translate>Workspaces</a></li>
+                </ul>
+                <!-- admin header -->
+                <ul class="nav navbar-nav" ng-if="role =='admin'">
+                    <li ng-class="{active:isActive(['/admin/users','/admin/user'])}"><a ng-href="/admin/users" translate>Users</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+
+                        <ul class="dropdown-menu primary-menu">
+                            <div class="user-info-dropdown" tr-href="/config/user">
+                                <a  class="user-preferences"><span class="fa fa-cog"></span></a>
+                                <div class="user-details">{{ user.firstName }} {{ user.lastName }}</div>
+                                <span>{{ currentFarm.name }} <span class="badge badge-default" style="top:-1px">{{ role }}</span></span>
+                            </div>
+                            <a ng-click="logout()" class="btn btn-default pull-right" style="margin: 5px 5px 0 0" translate>Sign out</a>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <div ng-if="!showMenu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-class="{active:isActive('/login')}"><a ng-href="/login" translate>Sign in</a></li>
+                </ul>
+            </div>
+            </ul>
+        </div>
+    </div>
+</div>

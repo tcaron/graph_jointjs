@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3 class="panel-title" translate>Sign in to Artis Studio</h3></div>
+            <div class="panel-body">
+                <form ng-submit="login()">
+
+                    <div class="form-group">
+                        <label for="username" translate>Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="{{'Username'|translate}}" ng-model="user.username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" translate>Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="{{'Password'|translate}}" ng-model="user.password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" translate>Sign in</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
