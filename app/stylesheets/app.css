@@ -5,9 +5,9 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px!important;
-  background: url(../images/wallpapers/wallpaper-corn-3.jpeg) no-repeat center fixed;
+/*  background: url(../images/wallpapers/wallpaper-corn-3.jpeg) no-repeat center fixed;
   background-size:cover;
-  -webkit-background-size: cover;
+  -webkit-background-size: cover; */
   padding-right: 0px !important
 }
 

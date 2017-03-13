@@ -1,0 +1,34 @@
+<br>
+<div class="row.vertical-offset-100" ng-controller="WorkspaceCtrl">
+    <div class="col-md-8.col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Workspace</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <col width="130">
+
+                    <tr>
+                        <td><b translate>Name</b></td>
+                        <td><input class="form-control" placeholder="{{'Name'|translate}}" ng-model="workspace.name"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div ng-if="!new" class="col-xs-6">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="update()" translate>
+                            Update
+                        </button>
+                    </div>
+                    <div ng-if="new" class="col-xs-6 col-xs-offset-3">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="create()" translate>
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@
 var myApp = angular.module('artisStudio', [
   'ngRoute', 'ngLocale', 'gettext', 'ui-notification', 'tmh.dynamicLocale', 'LocalStorageModule', 'ngProgress',
   'artisStudio.home', 'artisStudio.login', 'artisStudio.header', 'artisStudio.footer', 'artisStudio.version',
-  'artisStudio.workspaces', 'artisStudio.projects', 'artisStudio.models', 'artisStudio.model'
+  'artisStudio.workspace', 'artisStudio.workspaces', 'artisStudio.projects', 'artisStudio.models', 'artisStudio.model'
 ])
 
   .config(['$locationProvider', '$routeProvider', '$httpProvider',
