@@ -6,7 +6,7 @@
                 <h3 class="panel-title" translate>Model [{{model.name}}]
                     <a class="btn btn-warning btn-md active"
                        style="float: right; margin-top: 0.5em; margin-right: 0.5em"
-                       href="javascript:this.document.graph.save();" translate>Save</a>
+                       ng-click="save(model._id)" translate>Save</a>
                     <a class="btn btn-primary btn-md active"
                        style="float: right; margin-top: 0.5em; margin-right: 0.5em"
                        href="javascript:this.document.graph.up();" translate>Up</a>
@@ -30,3 +30,29 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="saveModal.html">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header-danger">
+                    <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" translate>Save model</h4>
+                </div>
+                <div class="modal-body">
+                    <p translate>Are you sure you would like to save this model?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal" translate>
+                        Cancel
+                    </button>
+                    <button type="button" ng-click="close(true)" class="btn btn-danger" data-dismiss="modal" translate>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,9 +1,11 @@
-var Graph = function (e, w, p, n, m) {
+var Graph = function (e, w, p, n, m, id) {
 // private attributes
   var workspace = w;
   var project = p;
   var name = n;
   var model;
+  var id = id;
+
   // joint objects
   var graph = new joint.dia.Graph;
   var paper = new joint.dia.Paper({
@@ -58,28 +60,6 @@ var Graph = function (e, w, p, n, m) {
   joint.shapes.devs.NewModelView = joint.shapes.devs.ModelView;
 
 // private methods
-  var build_save_modal = function () {
-    var modal = $('<div/>', {
-      class: 'modal fade',
-      id: 'saveModal',
-      'aria-hidden': 'true'
-    });
-    var modalDialog = $('<div/>', {class: 'modal-dialog modal-sm'});
-    var modalContent = $('<div/>', {class: 'modal-content'});
-    var modalBody = $('<div/>', {class: 'modal-body'});
-    $('<p/>', {html: 'Model is saved.'}).appendTo(modalBody);
-    $('<a/>', {
-      class: 'btn btn-primary btn-ok',
-      href: '#',
-      'data-dismiss': 'modal',
-      html: 'OK'
-    }).appendTo($('<div/>', {class: 'btn-group'}).appendTo(modalBody));
-    modalBody.appendTo(modalContent);
-    modalContent.appendTo(modalDialog);
-    modalDialog.appendTo(modal);
-    $('#main').prepend(modal);
-  };
-
   var build_conditions_modal = function () {
     var modal = $('<div/>', {
       class: 'modal fade',
@@ -351,7 +331,6 @@ var Graph = function (e, w, p, n, m) {
 
   var init = function (m) {
     model = JSON.parse(m);
-    build_save_modal();
     build_project_modal();
     build_conditions_modal();
     build_graph(model.structure);
@@ -414,20 +393,8 @@ var Graph = function (e, w, p, n, m) {
   };
 
 // public methods
-  this.save = function () {
-    /*    $.ajax({
-     url: '/models/save',
-     data: {
-     workspace: workspace,
-     project: project,
-     model: JSON.stringify(model)
-     }
-     }).done(function (data) { */
-
-    console.log(model);
-
-    $('#saveModal').modal('show');
-//    });
+  this.model = function() {
+      return model;
   };
 
   this.conditions = function () {

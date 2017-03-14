@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 var myApp = angular.module('artisStudio', [
   'ngRoute', 'ngLocale', 'gettext', 'ui-notification', 'tmh.dynamicLocale', 'LocalStorageModule', 'ngProgress',
+  'angularModalService',
   'artisStudio.home', 'artisStudio.login', 'artisStudio.header', 'artisStudio.footer', 'artisStudio.version',
   'artisStudio.workspace', 'artisStudio.workspaces', 'artisStudio.projects', 'artisStudio.models', 'artisStudio.model'
 ])
