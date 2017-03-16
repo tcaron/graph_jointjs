@@ -17,13 +17,17 @@ msgstr ""
 msgid "Actions"
 msgstr "Actions"
 
-#: models/model.html:44
+#: models/model.html:48
 msgid "Are you sure you would like to save this model?"
 msgstr "Etes-vous sûr de vouloir sauvegarder le modèle ?"
 
-#: models/model.html:47
+#: models/model.html:51
 msgid "Cancel"
 msgstr "Annuler"
+
+#: models/model.html:16
+msgid "Classes"
+msgstr "Classes"
 
 #: models/model.html:13
 msgid "Conditions"
@@ -34,7 +38,7 @@ msgstr "Conditions"
 msgid "Create"
 msgstr "Créer"
 
-#: models/model.html:16
+#: models/model.html:19
 msgid "Dynamics"
 msgstr "Dynamique"
 
@@ -55,7 +59,7 @@ msgstr "Nom"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: models/model.html:22
+#: models/model.html:25
 msgid "Project"
 msgstr "Projet"
 
@@ -63,11 +67,11 @@ msgstr "Projet"
 msgid "Projects"
 msgstr "Projets"
 
-#: models/model.html:50 models/model.html:7
+#: models/model.html:54 models/model.html:7
 msgid "Save"
 msgstr "Enregistrer"
 
-#: models/model.html:41
+#: models/model.html:45
 msgid "Save model"
 msgstr "Enregistrer le modèle"
 
@@ -99,7 +103,7 @@ msgstr "Nom d’utilisateur"
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: models/model.html:19
+#: models/model.html:22
 msgid "Views"
 msgstr "Vues"
 

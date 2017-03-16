@@ -10,12 +10,16 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: models/model.html:44
+#: models/model.html:48
 msgid "Are you sure you would like to save this model?"
 msgstr ""
 
-#: models/model.html:47
+#: models/model.html:51
 msgid "Cancel"
+msgstr ""
+
+#: models/model.html:16
+msgid "Classes"
 msgstr ""
 
 #: models/model.html:13
@@ -29,7 +33,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: models/model.html:16
+#: models/model.html:19
 msgid "Dynamics"
 msgstr ""
 
@@ -54,7 +58,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: models/model.html:22
+#: models/model.html:25
 msgid "Project"
 msgstr ""
 
@@ -62,12 +66,12 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
-#: models/model.html:50
+#: models/model.html:54
 #: models/model.html:7
 msgid "Save"
 msgstr ""
 
-#: models/model.html:41
+#: models/model.html:45
 msgid "Save model"
 msgstr ""
 
@@ -101,7 +105,7 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: models/model.html:19
+#: models/model.html:22
 msgid "Views"
 msgstr ""
 
