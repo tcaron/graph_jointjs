@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: models/models.html:17
+#: projects/projects.html:17
+#: workspaces/workspaces.html:17
+msgid "Actions"
+msgstr ""
+
+#: models/model.html:44
+msgid "Are you sure you would like to save this model?"
+msgstr ""
+
+#: models/model.html:47
+msgid "Cancel"
+msgstr ""
+
+#: models/model.html:13
+msgid "Conditions"
+msgstr ""
+
+#: models/models.html:10
+#: projects/projects.html:10
+#: workspaces/workspace.html:26
+#: workspaces/workspaces.html:10
+msgid "Create"
+msgstr ""
+
+#: models/model.html:16
+msgid "Dynamics"
+msgstr ""
+
+#: models/model.html:6
+msgid "Model"
+msgstr ""
+
+#: models/models.html:6
+msgid "Models"
+msgstr ""
+
+#: models/models.html:16
+#: projects/projects.html:16
+#: workspaces/workspace.html:13
+#: workspaces/workspace.html:14
+#: workspaces/workspaces.html:16
+msgid "Name"
+msgstr ""
+
+#: login/login.html:14
+#: login/login.html:15
+msgid "Password"
+msgstr ""
+
+#: models/model.html:22
+msgid "Project"
+msgstr ""
+
+#: projects/projects.html:6
+msgid "Projects"
+msgstr ""
+
+#: models/model.html:50
+#: models/model.html:7
+msgid "Save"
+msgstr ""
+
+#: models/model.html:41
+msgid "Save model"
+msgstr ""
+
+#: header/header.html:42
+#: login/login.html:18
+msgid "Sign in"
+msgstr ""
+
+#: login/login.html:4
+msgid "Sign in to Artis Studio"
+msgstr ""
+
+#: header/header.html:35
+msgid "Sign out"
+msgstr ""
+
+#: models/model.html:10
+msgid "Up"
+msgstr ""
+
+#: workspaces/workspace.html:21
+msgid "Update"
+msgstr ""
+
+#: login/login.html:10
+#: login/login.html:9
+msgid "Username"
+msgstr ""
+
+#: header/header.html:23
+msgid "Users"
+msgstr ""
+
+#: models/model.html:19
+msgid "Views"
+msgstr ""
+
+#: workspaces/workspace.html:6
+msgid "Workspace"
+msgstr ""
+
+#: header/header.html:19
+#: workspaces/workspaces.html:6
+msgid "Workspaces"
+msgstr ""

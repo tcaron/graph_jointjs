@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: models/models.html:17 projects/projects.html:17
+#: workspaces/workspaces.html:17
+msgid "Actions"
+msgstr "Actions"
+
+#: models/model.html:44
+msgid "Are you sure you would like to save this model?"
+msgstr "Etes-vous sûr de vouloir sauvegarder le modèle ?"
+
+#: models/model.html:47
+msgid "Cancel"
+msgstr "Annuler"
+
+#: models/model.html:13
+msgid "Conditions"
+msgstr "Conditions"
+
+#: models/models.html:10 projects/projects.html:10 workspaces/workspace.html:26
+#: workspaces/workspaces.html:10
+msgid "Create"
+msgstr "Créer"
+
+#: models/model.html:16
+msgid "Dynamics"
+msgstr "Dynamique"
+
+#: models/model.html:6
+msgid "Model"
+msgstr "Modèle"
+
+#: models/models.html:6
+msgid "Models"
+msgstr "Modèles"
+
+#: models/models.html:16 projects/projects.html:16 workspaces/workspace.html:13
+#: workspaces/workspace.html:14 workspaces/workspaces.html:16
+msgid "Name"
+msgstr "Nom"
+
+#: login/login.html:14 login/login.html:15
+msgid "Password"
+msgstr "Mot de passe"
+
+#: models/model.html:22
+msgid "Project"
+msgstr "Projet"
+
+#: projects/projects.html:6
+msgid "Projects"
+msgstr "Projets"
+
+#: models/model.html:50 models/model.html:7
+msgid "Save"
+msgstr "Enregistrer"
+
+#: models/model.html:41
+msgid "Save model"
+msgstr "Enregistrer le modèle"
+
+#: header/header.html:42 login/login.html:18
+msgid "Sign in"
+msgstr "Connecter"
+
+#: login/login.html:4
+msgid "Sign in to Artis Studio"
+msgstr "Connecter à Artis Studio"
+
+#: header/header.html:35
+msgid "Sign out"
+msgstr "Déconnecter"
+
+#: models/model.html:10
+msgid "Up"
+msgstr "Monter"
+
+#: workspaces/workspace.html:21
+msgid "Update"
+msgstr "Mettre à jour"
+
+#: login/login.html:10 login/login.html:9
+msgid "Username"
+msgstr "Nom d’utilisateur"
+
+#: header/header.html:23
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: models/model.html:19
+msgid "Views"
+msgstr "Vues"
+
+#: workspaces/workspace.html:6
+msgid "Workspace"
+msgstr "Workspace"
+
+#: header/header.html:19 workspaces/workspaces.html:6
+msgid "Workspaces"
+msgstr "Workspaces"
