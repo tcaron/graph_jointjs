@@ -165,10 +165,10 @@ var Graph = function (e, w, p, n, m, id) {
     link.addTo(graph).reparent();
   };
 
-  var add_sub_model = function (parent, child, index) {
+  var add_sub_model = function (parent, child, child_geometry, index) {
     var inPorts = child.in || [];
     var outPorts = child.out || [];
-    var geometry = child.geometry || {
+    var geometry = child_geometry || {
         position: {
           x: 20 + index * 100,
           y: 20
@@ -206,7 +206,7 @@ var Graph = function (e, w, p, n, m, id) {
   };
 
   var build_graph = function (root) {
-    var geometry = root.geometry || {
+    var geometry = {
         position: {
           x: 50,
           y: 50
@@ -230,9 +230,9 @@ var Graph = function (e, w, p, n, m, id) {
       var child = root.submodels[i];
 
       if (child.model) {
-        add_sub_model(coupled, child, i);
+        add_sub_model(coupled, child, child.geometry, i);
       } else if (child.use) {
-        add_sub_model(coupled, model.classes[child.use], i);
+        add_sub_model(coupled, model.classes[child.use], child.geometry || model.classes[child.use].geometry, i);
       }
     }
     if (root.connections.internals) {
@@ -303,6 +303,9 @@ var Graph = function (e, w, p, n, m, id) {
 
     while (!found && i < root.submodels.length) {
       if (root.submodels[i].model === name) {
+        root.submodels[i].geometry = {position: position, size: size};
+        found = true;
+      } else if(root.submodels[i].use && model.classes[root.submodels[i].use].model === name) {
         root.submodels[i].geometry = {position: position, size: size};
         found = true;
       } else {
