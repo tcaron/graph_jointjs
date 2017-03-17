@@ -10,7 +10,7 @@ var Graph = function (e, w, p, n, m, id) {
   var graph = new joint.dia.Graph;
   var paper = new joint.dia.Paper({
     el: e,
-    width: 900,
+    width: 1024,
     height: 800,
     gridSize: 1,
     model: graph,
@@ -125,7 +125,7 @@ var Graph = function (e, w, p, n, m, id) {
     var modalHeader = $('<div/>', {class: 'modal-header'});
     var modalBody = $('<div/>', {class: 'modal-body'});
 
-    $('<h4/>', {class: 'modal-title', text: 'Project'}).appendTo(modalHeader);
+    $('<h4/>', {class: 'modal-title', text: 'Model'}).appendTo(modalHeader);
 
     var formDiv = $('<form/>', {class: 'form-inline'});
 
@@ -380,8 +380,11 @@ var Graph = function (e, w, p, n, m, id) {
   var onClick = function (view, evt, x, y) {
     if (view.model.attributes.type === "devs.NewAtomic") {
       var atomic_model_name = view.model.attributes.attrs['.label'].text;
-      console.log("ATOMIC: " + atomic_model_name);
+      var scope = angular.element($("#model-view")).scope();
 
+      scope.$apply(function(){
+        scope.atomic(atomic_model_name);
+      });
     } else if (view.model.attributes.type === "devs.NewCoupled") {
       var coupled_model_name = view.model.attributes.attrs['.label'].text;
       var root = null;
@@ -390,6 +393,7 @@ var Graph = function (e, w, p, n, m, id) {
       root = search_model();
       if (root) {
         graph.clear();
+        atomicModels = {};
         build_graph(root);
       }
     }
@@ -431,6 +435,7 @@ var Graph = function (e, w, p, n, m, id) {
       root = search_model();
       if (root) {
         graph.clear();
+        atomicModels = {};
         build_graph(root);
       }
     }

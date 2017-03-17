@@ -20,7 +20,8 @@ angular.module('artisStudio.projects', ['ngRoute'])
     $scope.projects = [];
     $scope.workspace = workspace_name;
     DataFactory.getData('projects/' + workspace_id).then(function (data) {
-      $scope.projects = data.data;
+      $scope.workspace = data.data.workspace;
+      $scope.projects = data.data.projects;
     });
 
     $scope.models = function (project_id, project_name) {

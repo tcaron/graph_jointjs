@@ -42,6 +42,19 @@ angular.module('artisStudio.model', ['ngRoute'])
         });
       };
 
+      $scope.atomic = function (model_name) {
+        ModalService.showModal({
+          templateUrl: 'atomicModal.html',
+          controller: "AtomicModalController",
+          inputs: {
+            name: model_name
+          }
+        }).then(function (modal) {
+          modal.element.modal();
+          modal.close.then(function (result) {
+          });
+        });
+      };
 
     }])
 
@@ -73,6 +86,13 @@ angular.module('artisStudio.model', ['ngRoute'])
   )
 
   .controller('SaveModalController', function ($scope, close) {
+    $scope.close = function (result) {
+      close(result, 500);
+    };
+  })
+
+  .controller('AtomicModalController', function ($scope, close, name) {
+    $scope.name = name;
     $scope.close = function (result) {
       close(result, 500);
     };

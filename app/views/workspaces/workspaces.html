@@ -1,4 +1,3 @@
-<br>
 <div class="row.vertical-offset-100" ng-controller="WorkspacesCtrl">
     <div class="col-md-8.col-md-offset-2">
         <div class="panel panel-primary">
@@ -7,22 +6,22 @@
             </div>
             <div class="panel-body">
                 <a class="btn btn-primary btn-md active" ng-click="create()">
-                    <i class="glyphicon glyphicon-plus" translate>Create</i>
+                    <i class="glyphicon glyphicon-plus" /><span translate>&nbsp;Create</span>
                 </a>
                 <br>
                 <br>
                 <table class="table">
                     <tr>
                         <th translate>Name</th>
-                        <th translate>Actions</th>
+                        <th colspan="3" translate>Actions</th>
                     </tr>
                     <tr ng-repeat="workspace in workspaces">
                         <td>{{workspace.name}}</td>
                         <td style="width: 50px">
-                            <span class="glyphicon glyphicon-edit" ng-click="edit(workspace._id)"></span>
+                            <span class="glyphicon glyphicon-th-list" ng-click="projects(workspace._id, workspace.name)"></span>
                         </td>
                         <td style="width: 50px">
-                            <span class="glyphicon glyphicon-stats" ng-click="projects(workspace._id, workspace.name)"></span>
+                            <span class="glyphicon glyphicon-edit" ng-click="edit(workspace._id)"></span>
                         </td>
                         <td style="width: 50px">
                             <span class="glyphicon glyphicon-remove" ng-click="delete(workspace._id)"></span>

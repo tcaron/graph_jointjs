@@ -1,23 +1,34 @@
-<br>
 <div class="row.vertical-offset-100" ng-controller="ModelsCtrl">
-    <div class="col-md-8.col-md-offset-2">
+    <div class="col-md-4.col-md-offset-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><span translate>Models</span> [{{project}}]</h3>
+                <h3 class="panel-title">
+                    <a class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+                       href="#/projects/{{workspace._id}}/{{workspace.name}}"></a>
+                    <span translate>Models</span> [{{project.name}}]
+                </h3>
             </div>
             <div class="panel-body">
-                <a class="btn btn-primary btn-md active" href='/models/create'>
-                    <i class="glyphicon glyphicon-plus" translate>Create</i>
+                <a class="btn btn-primary btn-md active" ng-click="create()">
+                    <i class="glyphicon glyphicon-plus" /><span translate>&nbsp;Create</span>
+                </a>
+                <a class="btn btn-success btn-md active" ng-click="import()">
+                    <i class="glyphicon glyphicon-download-alt" /><span translate>&nbsp;Import</span>
                 </a>
                 <br>
                 <br>
                 <table class="table">
                     <tr>
                         <th translate>Name</th>
-                        <th translate>Actions</th>
+                        <th translate>Include</th>
+                        <th colspan="2" translate>Actions</th>
                     </tr>
                     <tr ng-repeat="model in models">
                         <td>{{model.name}}</td>
+                        <td ng-if="model.include">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </td>
+                        <td ng-if="!model.include" />
                         <td style="width: 50px">
                             <span class="glyphicon glyphicon-edit" ng-click="edit(model._id)"></span>
                         </td>

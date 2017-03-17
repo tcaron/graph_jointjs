@@ -20,7 +20,9 @@ angular.module('artisStudio.models', ['ngRoute'])
     $scope.models = [];
     $scope.project = project_name;
     DataFactory.getData('models/' + project_id).then(function (data) {
-      $scope.models = data.data;
+      $scope.workspace = data.data.workspace;
+      $scope.project = data.data.project;
+      $scope.models = data.data.models;
     });
 
     $scope.edit = function (model_id) {
