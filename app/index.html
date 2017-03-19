@@ -19,11 +19,13 @@
     <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-switch/angular-ui-switch.min.css"/>
     <link rel="stylesheet" type="text/css" href="bower_components/ngprogress/ngProgress.css"/>
     <link rel="stylesheet" type="text/css" href="bower_components/html5-boilerplate/dist/css/main.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
-    <link rel="stylesheet" type="text/css" href="views/footer.css">
     <link rel="stylesheet" type="text/css" href="bower_components/joint/dist/joint.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/shapes.devs.css">
     <link rel="stylesheet" type="text/css" href="bower_components/jsoneditor/dist/jsoneditor.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/theme/ambiance.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
+    <link rel="stylesheet" type="text/css" href="views/footer.css">
 
     <script type="text/javascript" src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -31,6 +33,10 @@
     <script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
     <script type="text/javascript" src="bower_components/backbone/backbone-min.js"></script>
     <script type="text/javascript" src="bower_components/jsoneditor/dist/jsoneditor.min.js"></script>
+    <script type="text/javascript" src="bower_components/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="bower_components/codemirror/mode/clike/clike.js"></script>
+    <script type="text/javascript" src="bower_components/codemirror/keymap/emacs.js"></script>
+
 </head>
 <body>
 <div ng-include="'views/header/header.html'" class="no-animate"></div>
@@ -62,6 +68,7 @@
 <script type="text/javascript" src="bower_components/angular-ui-switch/angular-ui-switch.js"></script>
 <script type="text/javascript" src="bower_components/ngprogress/build/ngprogress.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-file-upload/dist/angular-file-upload.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
 
 <!-- Views -->
 <script type="text/javascript" src="app.js"></script>
@@ -73,6 +80,7 @@
 <script type="text/javascript" src="views/workspaces/workspace.js"></script>
 <script type="text/javascript" src="views/projects/projects.js"></script>
 <script type="text/javascript" src="views/models/models.js"></script>
+<script type="text/javascript" src="views/models/dynamics/dynamics.js"></script>
 <script type="text/javascript" src="views/models/import/import.js"></script>
 <script type="text/javascript" src="views/models/model.js"></script>
 

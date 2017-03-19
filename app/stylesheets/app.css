@@ -157,3 +157,7 @@ button:active {
     width: auto;
   }
 }
+
+.CodeMirror {
+  height: 500px;
+}

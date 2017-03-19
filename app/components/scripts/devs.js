@@ -381,10 +381,26 @@ var Graph = function (e, w, p, n, m, id) {
     if (view.model.attributes.type === "devs.NewAtomic") {
       var atomic_model_name = view.model.attributes.attrs['.label'].text;
       var scope = angular.element($("#model-view")).scope();
+      var found = false;
+      var index = 0;
+      var submodel = null;
 
-      scope.$apply(function(){
-        scope.atomic(atomic_model_name);
-      });
+      root = search_model();
+      while (!found && index < root.submodels.length) {
+        if (root.submodels[index].model == atomic_model_name) {
+          submodel = root.submodels[index];
+          found = true;
+        } if (root.submodels[index].use == atomic_model_name) {
+          // TODO: find class
+        } else {
+          ++index;
+        }
+      }
+      if (submodel) {
+        scope.$apply(function () {
+          scope.atomic(submodel);
+        });
+      }
     } else if (view.model.attributes.type === "devs.NewCoupled") {
       var coupled_model_name = view.model.attributes.attrs['.label'].text;
       var root = null;

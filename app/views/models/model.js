@@ -13,11 +13,13 @@ angular.module('artisStudio.model', ['ngRoute'])
   }])
 
   .controller('ModelCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location', 'Joint', 'ModalService',
-    '$http', '$document', 'Notification',
-    function ($scope, $rootScope, $routeParams, DataFactory, $location, Joint, ModalService, $http, $document, Notification) {
+    '$http', '$document', 'Notification', 'localStorageService',
+    function ($scope, $rootScope, $routeParams, DataFactory, $location, Joint, ModalService, $http, $document,
+              Notification, localStorageService) {
       var model_id = $routeParams.id;
 
       $scope.model = null;
+      $scope.selected = null;
       DataFactory.getData('model/' + model_id).then(function (data) {
         $scope.model = data.data;
       });
@@ -42,21 +44,27 @@ angular.module('artisStudio.model', ['ngRoute'])
         });
       };
 
-      $scope.atomic = function (model_name) {
+      $scope.atomic = function (model) {
+        $scope.selected = model;
         ModalService.showModal({
           templateUrl: 'atomicModal.html',
           controller: "AtomicModalController",
           inputs: {
-            name: model_name
+            root: $scope.model,
+            model: model
           }
         }).then(function (modal) {
           modal.element.modal();
           modal.close.then(function (result) {
+            modal.closed.then(function () {
+              localStorageService.set("dynamics", result);
+              $location.path("/models/dynamics");
+            });
           });
         });
       };
 
-    }])
+      }])
 
   .directive('graph', ['$window', '$document', '$timeout', '$q', 'Joint',
     function ($window, $document, $timeout, $q, Joint) {
@@ -91,9 +99,19 @@ angular.module('artisStudio.model', ['ngRoute'])
     };
   })
 
-  .controller('AtomicModalController', function ($scope, close, name) {
-    $scope.name = name;
+  .controller('AtomicModalController', function ($scope, close, root, model) {
+    $scope.root = root;
+    $scope.model = model;
+
     $scope.close = function (result) {
       close(result, 500);
     };
+
+    $scope.edit_dynamics = function () {
+      close({
+        name: $scope.model.dynamics,
+        definition: JSON.parse($scope.root.definition).dynamics[$scope.model.dynamics]},
+        500);
+    };
+
   });
