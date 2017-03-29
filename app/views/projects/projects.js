@@ -19,11 +19,7 @@ angular.module('artisStudio.projects', ['ngRoute'])
 
       $scope.projects = [];
       $scope.workspace = workspace_name;
-      DataFactory.getData('projects/' + workspace_id).then(function (data) {
-        $scope.workspace = data.data.workspace;
-        $scope.projects = data.data.projects;
-      });
-
+      loadProjects($scope, DataFactory, workspace_id);
       $scope.create = function () {
         ModalService.showModal({
           templateUrl: 'createProjectModal.html',
@@ -51,6 +47,26 @@ angular.module('artisStudio.projects', ['ngRoute'])
       $scope.models = function (project_id, project_name) {
         $location.path("/project/" + project_id + "/" + project_name);
       };
+
+      $scope.remove = function (project_id, project_name) {
+        ModalService.showModal({
+          templateUrl: 'removeProjectModal.html',
+          controller: "RemoveProjectModalController",
+          inputs: {
+            name: project_name
+          }
+        }).then(function (modal) {
+          modal.element.modal();
+          modal.close.then(function (result) {
+            if (result === "Remove") {
+              DataFactory.deleteData('project/' + project_id).then(function (data) {
+                loadProjects($scope, DataFactory, workspace_id);
+              });
+            }
+          });
+        });
+      };
+
     }])
 
   .controller('CreateProjectModalController', function ($scope, close) {
@@ -61,4 +77,18 @@ angular.module('artisStudio.projects', ['ngRoute'])
         name: $scope.name
       }, 500);
     };
+  })
+
+  .controller('RemoveProjectModalController', function ($scope, close, name) {
+    $scope.name = name;
+    $scope.close = function (result) {
+      close(result, 500);
+    };
   });
+
+var loadProjects = function ($scope, DataFactory, workspace_id) {
+  DataFactory.getData('projects/' + workspace_id).then(function (data) {
+    $scope.workspace = data.data.workspace;
+    $scope.projects = data.data.projects;
+  });
+};
