@@ -32,9 +32,14 @@ angular.module('artisStudio.resource', ['ngRoute'])
             $scope.old_resource = $scope.resource;
             $scope.new = false;
             $scope.selectedResourceTypeId = $scope.resource.type;
-            if (searchCppId($scope.resourceTypes) === $scope.resource.type) {
+            if (searchCppId($scope.resourceTypes) === $scope.resource.type ||
+              searchCmakeId($scope.resourceTypes) === $scope.resource.type ||
+              searchTextId($scope.resourceTypes) === $scope.resource.type) {
               $scope.cpp = true;
               $scope.resource_path = JSON.parse($scope.resource.properties).path;
+              if (!$scope.resource_path) {
+                $scope.resource_path = "";
+              }
             }
           });
         }
@@ -56,7 +61,9 @@ angular.module('artisStudio.resource', ['ngRoute'])
       $scope.update = function () {
         var new_resource;
 
-        if ($scope.selectedResourceTypeId === searchCppId($scope.resourceTypes)) {
+        if ($scope.selectedResourceTypeId === searchCppId($scope.resourceTypes) ||
+          $scope.selectedResourceTypeId === searchCmakeId($scope.resourceTypes) ||
+          $scope.selectedResourceTypeId === searchTextId($scope.resourceTypes)) {
           new_resource = {
             name: $scope.resource.name,
             type: $scope.selectedResourceTypeId,
@@ -86,6 +93,36 @@ var searchCppId = function(types)
 
   while (!found && index < types.length) {
     if (types[index].name === "c++ file") {
+      found = true;
+    } else {
+      ++index;
+    }
+  }
+  return found ? types[index]._id : -1;
+};
+
+var searchCmakeId = function(types)
+{
+  var found = false;
+  var index = 0;
+
+  while (!found && index < types.length) {
+    if (types[index].name === "cmake file") {
+      found = true;
+    } else {
+      ++index;
+    }
+  }
+  return found ? types[index]._id : -1;
+};
+
+var searchTextId = function(types)
+{
+  var found = false;
+  var index = 0;
+
+  while (!found && index < types.length) {
+    if (types[index].name === "text file") {
       found = true;
     } else {
       ++index;

@@ -28,6 +28,17 @@ angular.module('artisStudio.project', ['ngRoute'])
       });
       DataFactory.getData('resources/' + project_id).then(function (data) {
         $scope.resources = data.data.resources;
+        DataFactory.getData('resourcetypes/').then(function (data) {
+          $scope.resourceTypes = data.data;
+          $scope.resources.forEach(function (resource) {
+            var properties = JSON.parse(resource.properties);
+
+            resource.type_name = search_type_name($scope.resourceTypes, resource.type);
+            if (properties.path) {
+              resource.path = properties.path;
+            }
+          });
+        });
       });
 
       $scope.edit_model = function (model_id) {
@@ -51,3 +62,17 @@ angular.module('artisStudio.project', ['ngRoute'])
       };
 
     }]);
+
+var search_type_name = function (types, id) {
+  var found = false;
+  var index = 0;
+
+  while (!found && index < types.length) {
+    if (types[index]._id === id) {
+      found = true;
+    } else {
+      ++index;
+    }
+  }
+  return found ? types[index].name : "<none>";
+};
