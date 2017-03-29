@@ -44,10 +44,8 @@ myApp.factory('DataFactory', function ($rootScope, $http, $location, Notificatio
     return $http.delete(urlBase + query)
       .success(function (data) {
         Notification.success({message: data.message, title: 'Success', delay: 8000});
-        redirection(redirect);
       }).error(function (data) {
         Notification.error({message: data.message, title: 'Erreur ' + data.status, delay: 8000});
-        redirection(errorRedirect);
       });
   };
 

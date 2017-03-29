@@ -12,8 +12,8 @@ angular.module('artisStudio.project', ['ngRoute'])
     });
   }])
 
-  .controller('ProjectCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location',
-    function ($scope, $rootScope, $routeParams, DataFactory, $location) {
+  .controller('ProjectCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location', 'ModalService',
+    function ($scope, $rootScope, $routeParams, DataFactory, $location, ModalService) {
       var project_id = $routeParams.id;
       var project_name = $routeParams.name;
 
@@ -21,25 +21,9 @@ angular.module('artisStudio.project', ['ngRoute'])
       $scope.resources = [];
       $scope.project = project_name;
       $scope.item = "models";
-      DataFactory.getData('models/' + project_id).then(function (data) {
-        $scope.workspace = data.data.workspace;
-        $scope.project = data.data.project;
-        $scope.models = data.data.models;
-      });
-      DataFactory.getData('resources/' + project_id).then(function (data) {
-        $scope.resources = data.data.resources;
-        DataFactory.getData('resourcetypes/').then(function (data) {
-          $scope.resourceTypes = data.data;
-          $scope.resources.forEach(function (resource) {
-            var properties = JSON.parse(resource.properties);
 
-            resource.type_name = search_type_name($scope.resourceTypes, resource.type);
-            if (properties.path) {
-              resource.path = properties.path;
-            }
-          });
-        });
-      });
+      load_models($scope, DataFactory, project_id);
+      load_resources($scope, DataFactory, project_id);
 
       $scope.edit_model = function (model_id) {
         $location.path("/model/" + model_id);
@@ -61,7 +45,61 @@ angular.module('artisStudio.project', ['ngRoute'])
         $location.path("/resources/import/" + project_id + "/" + project_name);
       };
 
-    }]);
+      $scope.remove_model = function (model_id, model_name) {
+        ModalService.showModal({
+          templateUrl: 'removeModelModal.html',
+          controller: "RemoveModelModalController",
+          inputs: {
+            name: model_name
+          }
+        }).then(function (modal) {
+          modal.element.modal();
+          modal.close.then(function (result) {
+            if (result === "Remove") {
+              DataFactory.deleteData('model/' + model_id).then(function (data) {
+                load_models($scope, DataFactory, project_id);
+                load_resources($scope, DataFactory, project_id);
+              });
+            }
+          });
+        });
+      };
+
+      $scope.remove_resource = function (resource_id, resource_name) {
+        ModalService.showModal({
+          templateUrl: 'removeResourceModal.html',
+          controller: "RemoveResourceModalController",
+          inputs: {
+            name: resource_name
+          }
+        }).then(function (modal) {
+          modal.element.modal();
+          modal.close.then(function (result) {
+            if (result === "Remove") {
+              DataFactory.deleteData('resource/' + resource_id).then(function (data) {
+                load_models($scope, DataFactory, project_id);
+                load_resources($scope, DataFactory, project_id);
+              });
+            }
+          });
+        });
+      };
+
+    }])
+
+  .controller('RemoveModelModalController', function ($scope, close, name) {
+    $scope.name = name;
+    $scope.close = function (result) {
+      close(result, 500);
+    };
+  })
+
+  .controller('RemoveResourceModalController', function ($scope, close, name) {
+    $scope.name = name;
+    $scope.close = function (result) {
+      close(result, 500);
+    };
+  });
 
 var search_type_name = function (types, id) {
   var found = false;
@@ -75,4 +113,29 @@ var search_type_name = function (types, id) {
     }
   }
   return found ? types[index].name : "<none>";
+};
+
+var load_models = function($scope, DataFactory, project_id) {
+  DataFactory.getData('models/' + project_id).then(function (data) {
+    $scope.workspace = data.data.workspace;
+    $scope.project = data.data.project;
+    $scope.models = data.data.models;
+  });
+};
+
+var load_resources = function ($scope, DataFactory, project_id) {
+  DataFactory.getData('resources/' + project_id).then(function (data) {
+    $scope.resources = data.data.resources;
+    DataFactory.getData('resourcetypes/').then(function (data) {
+      $scope.resourceTypes = data.data;
+      $scope.resources.forEach(function (resource) {
+        var properties = JSON.parse(resource.properties);
+
+        resource.type_name = search_type_name($scope.resourceTypes, resource.type);
+        if (properties.path) {
+          resource.path = properties.path;
+        }
+      });
+    });
+  });
 };

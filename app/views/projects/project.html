@@ -47,7 +47,7 @@
                                     <span class="glyphicon glyphicon-edit" ng-click="edit_model(model._id)"></span>
                                 </td>
                                 <td style="width: 50px">
-                                    <span class="glyphicon glyphicon-remove" ng-click="delete_model(model._id)"></span>
+                                    <span class="glyphicon glyphicon-remove" ng-click="remove_model(model._id, model.name)"></span>
                                 </td>
                             </tr>
                         </table>
@@ -79,7 +79,7 @@
                                     <span class="glyphicon glyphicon-edit" ng-click="edit_resource(resource._id)"></span>
                                 </td>
                                 <td style="width: 50px">
-                                    <span class="glyphicon glyphicon-remove" ng-click="delete_resource(resource._id)"></span>
+                                    <span class="glyphicon glyphicon-remove" ng-click="remove_resource(resource._id, resource.name)"></span>
                                 </td>
                             </tr>
                         </table>
@@ -91,3 +91,55 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="removeModelModal.html">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header-danger">
+                    <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" translate>Remove model</h4>
+                </div>
+                <div class="modal-body">
+                    <p translate>Are you sure you would like to delete this model of {{ name }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="close('Cancel')" class="btn btn-default" data-dismiss="modal" translate>
+                        Cancel
+                    </button>
+                    <button type="button" ng-click="close('Remove')" class="btn btn-danger" data-dismiss="modal" translate>
+                        Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="removeResourceModal.html">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header-danger">
+                    <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" translate>Remove resource</h4>
+                </div>
+                <div class="modal-body">
+                    <p translate>Are you sure you would like to delete this resource of {{ name }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="close('Cancel')" class="btn btn-default" data-dismiss="modal" translate>
+                        Cancel
+                    </button>
+                    <button type="button" ng-click="close('Remove')" class="btn btn-danger" data-dismiss="modal" translate>
+                        Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
