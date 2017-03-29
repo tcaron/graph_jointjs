@@ -16,9 +16,7 @@ angular.module('artisStudio.workspaces', ['ngRoute'])
     function ($scope, $rootScope, DataFactory, $location, ModalService, $http, Notification) {
       $scope.workspaces = [];
 
-      DataFactory.getData('workspaces').then(function (data) {
-        $scope.workspaces = data.data;
-      });
+      loadWorkspaces($scope, DataFactory);
 
       $scope.create = function () {
         ModalService.showModal({
@@ -50,6 +48,25 @@ angular.module('artisStudio.workspaces', ['ngRoute'])
       $scope.projects = function (workspace_id, workspace_name) {
         $location.path("projects/" + workspace_id + "/" + workspace_name);
       };
+
+      $scope.remove = function (workspace_id, workspace_name) {
+        ModalService.showModal({
+          templateUrl: 'removeWorkspaceModal.html',
+          controller: "RemoveWorkspaceModalController",
+          inputs: {
+            name: workspace_name
+          }
+        }).then(function (modal) {
+          modal.element.modal();
+          modal.close.then(function (result) {
+            if (result === "Remove") {
+              DataFactory.deleteData('workspace/' + workspace_id).then(function (data) {
+                loadWorkspaces($scope, DataFactory);
+              });
+            }
+          });
+        });
+      };
     }])
 
   .controller('CreateWorkspaceModalController', function ($scope, close) {
@@ -60,4 +77,17 @@ angular.module('artisStudio.workspaces', ['ngRoute'])
         name: $scope.name
       }, 500);
     };
+  })
+
+  .controller('RemoveWorkspaceModalController', function ($scope, close, name) {
+    $scope.name = name;
+    $scope.close = function (result) {
+      close(result, 500);
+    };
   });
+
+var loadWorkspaces = function ($scope, DataFactory) {
+  DataFactory.getData('workspaces').then(function (data) {
+    $scope.workspaces = data.data;
+  });
+};
