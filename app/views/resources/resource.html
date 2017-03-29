@@ -1,8 +1,8 @@
-<div class="row.vertical-offset-100" ng-controller="WorkspaceCtrl">
+<div class="row.vertical-offset-100" ng-controller="ResourceCtrl">
     <div class="col-md-8.col-md-offset-2">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title" translate>Workspace</h3>
+                <h3 class="panel-title" translate>Resource</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-bordered">
@@ -10,7 +10,18 @@
 
                     <tr>
                         <td><b translate>Name</b></td>
-                        <td><input class="form-control" placeholder="{{'Name'|translate}}" ng-model="workspace.name"></td>
+                        <td><input class="form-control" placeholder="{{'Name'|translate}}" ng-model="resource.name"></td>
+                    </tr>
+                    <tr>
+                        <td><b translate>Type</b></td>
+                        <td>
+                            <select ng-model="selectedResourceTypeId" ng-options="resourceType._id as resourceType.name for resourceType in resourceTypes" class="form-control">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr ng-if="cpp">
+                        <td><b translate>Path</b></td>
+                        <td><input class="form-control" placeholder="{{'Path'|translate}}" ng-model="resource_path"></td>
                     </tr>
                 </table>
             </div>

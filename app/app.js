@@ -6,7 +6,7 @@ var myApp = angular.module('artisStudio', [
   'angularModalService', 'angularFileUpload', 'ui.codemirror',
   'artisStudio.home', 'artisStudio.login', 'artisStudio.header', 'artisStudio.footer', 'artisStudio.version',
   'artisStudio.workspace', 'artisStudio.workspaces', 'artisStudio.projects', 'artisStudio.project', 'artisStudio.importModels',
-  'artisStudio.importResources','artisStudio.model', 'artisStudio.dynamics'
+  'artisStudio.importResources','artisStudio.model', 'artisStudio.dynamics', 'artisStudio.resource', 'artisStudio.resourceEdit'
 ])
 
   .config(['$locationProvider', '$routeProvider', '$httpProvider',

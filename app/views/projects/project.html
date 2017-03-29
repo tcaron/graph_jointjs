@@ -64,10 +64,13 @@
                         <table class="table">
                             <tr>
                                 <th translate>Name</th>
-                                <th colspan="2" translate>Actions</th>
+                                <th colspan="3" translate>Actions</th>
                             </tr>
                             <tr ng-repeat="resource in resources">
                                 <td>{{resource.name}}</td>
+                                <td style="width: 50px">
+                                    <span class="glyphicon glyphicon-th-list" ng-click="edit_resource_definition(resource._id)"></span>
+                                </td>
                                 <td style="width: 50px">
                                     <span class="glyphicon glyphicon-edit" ng-click="edit_resource(resource._id)"></span>
                                 </td>

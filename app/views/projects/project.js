@@ -38,6 +38,10 @@ angular.module('artisStudio.project', ['ngRoute'])
         $location.path("/models/import/" + project_id + "/" + project_name);
       };
 
+      $scope.edit_resource_definition = function (resource_id) {
+        $location.path("/resource/definition/" + resource_id);
+      };
+
       $scope.edit_resource = function (resource_id) {
         $location.path("/resource/" + resource_id);
       };
