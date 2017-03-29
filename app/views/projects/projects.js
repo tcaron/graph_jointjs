@@ -49,7 +49,7 @@ angular.module('artisStudio.projects', ['ngRoute'])
       };
 
       $scope.models = function (project_id, project_name) {
-        $location.path("/models/" + project_id + "/" + project_name);
+        $location.path("/project/" + project_id + "/" + project_name);
       };
     }])
 

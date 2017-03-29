@@ -1,24 +1,24 @@
 'use strict';
 
-angular.module('artisStudio.importModels', ['ngRoute'])
+angular.module('artisStudio.importResources', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/models/import/:id/:name', {
-      templateUrl: 'views/models/import/import.html',
-      controller: 'ImportModelsCtrl',
+    $routeProvider.when('/resources/import/:id/:name', {
+      templateUrl: 'views/resources/import/import.html',
+      controller: 'ImportResourcesCtrl',
       access: {
         requiredLogin: true
       }
     });
   }])
 
-  .controller('ImportModelsCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location',
+  .controller('ImportResourcesCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location',
     'FileUploader', 'localStorageService',
     function ($scope, $rootScope, $routeParams, DataFactory, $location, FileUploader, localStorageService) {
       var project_id = $routeParams.id;
       var project_name = $routeParams.name;
       var uploader = $scope.uploader = new FileUploader({
-        url: $rootScope.urlBase + '/api/v1/project/import/model/' + project_id,
+        url: $rootScope.urlBase + '/api/v1/project/import/resource/' + project_id,
         headers: {'X-Access-Token': localStorageService.get("token")}
       });
 

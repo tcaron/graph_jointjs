@@ -10,7 +10,7 @@
             </div>
             <div class="panel-body">
                 <a class="btn btn-primary btn-md active" ng-click="create()">
-                    <i class="glyphicon glyphicon-plus" /><span translate>&nbsp;Create</span>
+                    <i class="glyphicon glyphicon-plus"/><span translate>&nbsp;Create</span>
                 </a>
                 <br>
                 <br>
@@ -22,7 +22,8 @@
                     <tr ng-repeat="project in projects">
                         <td>{{project.name}}</td>
                         <td style="width: 50px">
-                            <span class="glyphicon glyphicon-th-list" ng-click="models(project._id, project.name)"></span>
+                                    <span class="glyphicon glyphicon-th-list"
+                                          ng-click="models(project._id, project.name)"></span>
                         </td>
                         <td style="width: 50px">
                             <span class="glyphicon glyphicon-edit" ng-click="edit(project._id)"></span>
@@ -33,6 +34,7 @@
                     </tr>
                 </table>
             </div>
+
         </div>
     </div>
 </div>
@@ -42,7 +44,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header-normal">
-                    <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">
+                    <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal"
+                            aria-hidden="true">
                         &times;
                     </button>
                     <h4 class="modal-title"><span translate>Create project</span> - {{workspace.name}}</h4>
@@ -54,7 +57,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal" translate>
+                    <button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal"
+                            translate>
                         Cancel
                     </button>
                     <button type="button" ng-click="close(true)" class="btn btn-danger" data-dismiss="modal" translate>

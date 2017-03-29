@@ -22,6 +22,9 @@ angular.module('artisStudio.model', ['ngRoute'])
       $scope.selected = null;
       DataFactory.getData('model/' + model_id).then(function (data) {
         $scope.model = data.data;
+        DataFactory.getData('dynamics/' + $scope.model.project._id).then(function (data2) {
+          $scope.dynamics = data2.data.dynamics;
+        });
       });
 
       $scope.save = function (model_id) {
@@ -57,6 +60,13 @@ angular.module('artisStudio.model', ['ngRoute'])
           modal.element.modal();
           modal.close.then(function (result) {
             modal.closed.then(function () {
+              var element = $scope.dynamics.find(function(value) { return value.name == result});
+
+/*              if (element) {
+
+              } else {
+
+              } */
               localStorageService.set("dynamics", result);
               $location.path("/models/dynamics");
             });

@@ -1,0 +1,86 @@
+<div class="row.vertical-offset-100" ng-controller="ProjectCtrl">
+    <div class="col-md-4.col-md-offset-4">
+        <div class="panel with-nav-tabs panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+                       style="color: #fff; margin: 0 10px; line-height: 38px;"
+                       href="#/projects/{{workspace._id}}/{{workspace.name}}"></a>
+                    <span translate>Project</span> {{project.name}}
+                </h3>
+                <ul class="nav nav-tabs">
+                    <li ng-click="item = 'models'" ng-class="(item === 'models') ? 'active' :''">
+                        <a data-toggle="tab"><span translate>Models</span></a>
+                    </li>
+                    <li ng-click="item = 'resources'" ng-class="(item === 'resources') ? 'active' :''">
+                        <a data-toggle="tab"><span translate>Resources</span></a>
+                    </li>
+                    <li ng-click="item = 'data'" ng-class="(item === 'data') ? 'active' :''">
+                        <a data-toggle="tab"><span translate>Data</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content" ng-switch="item">
+                    <div ng-switch-when="models">
+                        <a class="btn btn-primary btn-md active" ng-click="create_model()">
+                            <i class="glyphicon glyphicon-plus"/><span translate>&nbsp;Create</span>
+                        </a>
+                        <a class="btn btn-success btn-md active" ng-click="import_model()">
+                            <i class="glyphicon glyphicon-download-alt"/><span translate>&nbsp;Import</span>
+                        </a>
+                        <br>
+                        <br>
+                        <table class="table">
+                            <tr>
+                                <th translate>Name</th>
+                                <th translate>Include</th>
+                                <th colspan="2" translate>Actions</th>
+                            </tr>
+                            <tr ng-repeat="model in models">
+                                <td>{{model.name}}</td>
+                                <td ng-if="model.include">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </td>
+                                <td ng-if="!model.include"/>
+                                <td style="width: 50px">
+                                    <span class="glyphicon glyphicon-edit" ng-click="edit_model(model._id)"></span>
+                                </td>
+                                <td style="width: 50px">
+                                    <span class="glyphicon glyphicon-remove" ng-click="delete_model(model._id)"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div ng-switch-when="resources">
+                        <a class="btn btn-primary btn-md active" ng-click="create_resource()">
+                            <i class="glyphicon glyphicon-plus"/><span translate>&nbsp;Create</span>
+                        </a>
+                        <a class="btn btn-success btn-md active" ng-click="import_resource()">
+                            <i class="glyphicon glyphicon-download-alt"/><span translate>&nbsp;Import</span>
+                        </a>
+                        <br>
+                        <br>
+                        <table class="table">
+                            <tr>
+                                <th translate>Name</th>
+                                <th colspan="2" translate>Actions</th>
+                            </tr>
+                            <tr ng-repeat="resource in resources">
+                                <td>{{resource.name}}</td>
+                                <td style="width: 50px">
+                                    <span class="glyphicon glyphicon-edit" ng-click="edit_resource(resource._id)"></span>
+                                </td>
+                                <td style="width: 50px">
+                                    <span class="glyphicon glyphicon-remove" ng-click="delete_resource(resource._id)"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div ng-switch-when="data">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
