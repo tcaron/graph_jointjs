@@ -12,8 +12,9 @@ angular.module('artisStudio.project', ['ngRoute'])
     });
   }])
 
-  .controller('ProjectCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location', 'ModalService',
-    function ($scope, $rootScope, $routeParams, DataFactory, $location, ModalService) {
+  .controller('ProjectCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location', 'ModalService', '$http',
+      'Notification',
+    function ($scope, $rootScope, $routeParams, DataFactory, $location, ModalService, $http, Notification) {
       var project_id = $routeParams.id;
       var project_name = $routeParams.name;
 
@@ -65,6 +66,34 @@ angular.module('artisStudio.project', ['ngRoute'])
         });
       };
 
+      $scope.create_resource = function () {
+        DataFactory.getData('resourcetypes/').then(function (data) {
+          ModalService.showModal({
+            templateUrl: 'createResourceModal.html',
+            controller: "CreateResourceModalController",
+            inputs: {
+              types: data.data
+            }
+          }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (result) {
+              if (result.result) {
+                $http.post($rootScope.urlBase + '/api/v1/resource/' + project_id, {
+                  name: result.name,
+                  type_id: result.type
+                }).success(function (data) {
+                  load_models($scope, DataFactory, project_id);
+                  load_resources($scope, DataFactory, project_id);
+                  Notification.success({message: 'Resource created.', delay: 8000});
+                }).error(function (data) {
+                  Notification.error({message: data.message, title: 'Error ' + data.status, delay: 8000});
+                });
+              }
+            });
+          });
+        });
+      };
+
       $scope.remove_resource = function (resource_id, resource_name) {
         ModalService.showModal({
           templateUrl: 'removeResourceModal.html',
@@ -98,6 +127,18 @@ angular.module('artisStudio.project', ['ngRoute'])
     $scope.name = name;
     $scope.close = function (result) {
       close(result, 500);
+    };
+  })
+
+  .controller('CreateResourceModalController', function ($scope, close, types) {
+    $scope.name = "";
+    $scope.resourceTypes = types;
+    $scope.close = function (result) {
+      close({
+        result: result,
+        name: $scope.name,
+        type: $scope.selectedResourceTypeId
+      }, 500);
     };
   });
 
