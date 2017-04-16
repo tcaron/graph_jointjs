@@ -1,10 +1,9 @@
-var Graph = function (e, w, p, n, m, id) {
+var Graph = function (e, m, c, p, exp) {
 // private attributes
-  var workspace = w;
+  var model = m;
+  var classes = c;
   var project = p;
-  var name = n;
-  var model;
-  var id = id;
+  var experiment = exp;
 
   // joint objects
   var graph = new joint.dia.Graph;
@@ -129,9 +128,9 @@ var Graph = function (e, w, p, n, m, id) {
 
     var formDiv = $('<form/>', {class: 'form-inline'});
 
-    build_text_input('Author', 'author', model.project.author).appendTo(formDiv);
-    build_text_input('Date', 'date', model.project.date).appendTo(formDiv);
-    build_text_input('Version', 'version', model.project.version).appendTo(formDiv);
+    build_text_input('Author', 'author', project.author).appendTo(formDiv);
+    build_text_input('Date', 'date', project.date).appendTo(formDiv);
+    build_text_input('Version', 'version', project.version).appendTo(formDiv);
 
     $('<br/><br/>').appendTo(formDiv);
 
@@ -232,7 +231,7 @@ var Graph = function (e, w, p, n, m, id) {
       if (child.model) {
         add_sub_model(coupled, child, child.geometry, i);
       } else if (child.use) {
-        add_sub_model(coupled, model.classes[child.use], child.geometry || model.classes[child.use].geometry, i);
+        add_sub_model(coupled, classes[child.use], child.geometry || classes[child.use].geometry, i);
       }
     }
     if (root.connections.internals) {
@@ -266,7 +265,7 @@ var Graph = function (e, w, p, n, m, id) {
   };
 
   var search_model = function () {
-    var root = model.structure;
+    var root = model;
     var i = 0;
 
     while (root && i < path.length) {
@@ -276,7 +275,7 @@ var Graph = function (e, w, p, n, m, id) {
       while (!found && j < root.submodels.length) {
         if (root.submodels[j].model === path[i]) {
           found = true;
-        } else if (root.submodels[j].use && model.classes[root.submodels[j].use].model === path[i]) {
+        } else if (root.submodels[j].use && classes[root.submodels[j].use].model === path[i]) {
           found = true;
         } else {
           ++j;
@@ -286,7 +285,7 @@ var Graph = function (e, w, p, n, m, id) {
         if (root.submodels[j].model) {
           root = root.submodels[j];
         } else {
-          root = model.classes[root.submodels[j].use];
+          root = classes[root.submodels[j].use];
         }
         ++i;
       } else {
@@ -305,7 +304,7 @@ var Graph = function (e, w, p, n, m, id) {
       if (root.submodels[i].model === name) {
         root.submodels[i].geometry = {position: position, size: size};
         found = true;
-      } else if(root.submodels[i].use && model.classes[root.submodels[i].use].model === name) {
+      } else if(root.submodels[i].use && classes[root.submodels[i].use].model === name) {
         root.submodels[i].geometry = {position: position, size: size};
         found = true;
       } else {
@@ -332,11 +331,12 @@ var Graph = function (e, w, p, n, m, id) {
     }
   };
 
-  var init = function (m) {
-    model = JSON.parse(m);
-    build_project_modal();
+  var init = function () {
     build_conditions_modal();
-    build_graph(model.structure);
+    if (model) {
+      build_project_modal();
+      build_graph(model);
+    }
     paper.on('cell:pointerdblclick', onClick);
     graph.on('change:source change:target', onCreateLink);
     graph.on('change:position', function (element) {
@@ -421,26 +421,17 @@ var Graph = function (e, w, p, n, m, id) {
   };
 
   this.conditions = function () {
-    editor.set(model.experiment.conditions);
+    editor.set(experiment.conditions);
     $('#conditionsModal').modal('show');
   };
 
   this.okConditions = function () {
     $('#conditionsModal').modal('hide');
-    model.experiment.conditions = editor.get();
+    experiment.conditions = editor.get();
   };
 
   this.project = function () {
-    /*    $.ajax({
-     url: '/models/save',
-     data: {
-     workspace: workspace,
-     project: project,
-     model: JSON.stringify(model)
-     }
-     }).done(function (data) { */
     $('#projectModal').modal('show');
-//    });
   };
 
   this.up = function () {
@@ -457,5 +448,5 @@ var Graph = function (e, w, p, n, m, id) {
     }
   };
 
-  init(m);
+  init();
 };

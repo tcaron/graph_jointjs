@@ -1,0 +1,28 @@
+<div class="row.vertical-offset-100" id="model-view" ng-controller="ClassCtrl">
+    <div class="col-md-8.col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+                       href="#/project/{{model.project._id}}/{{model.project.name}}"></a>
+                    <span translate>Model</span> [{{model.name}}]
+                    <a class="glyphicon glyphicon-save pull-right" ng-click="save(model._id)"></a>
+                    <a class="glyphicon glyphicon-cog pull-right" style="width: 30px;"
+                       href="javascript:this.document.graph.project();"></a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <a class="btn btn-success btn-md active"
+                   href="javascript:this.document.graph.views();" translate>Views</a>
+                <a class="btn btn-success btn-md active"
+                   href="javascript:this.document.graph.dynamics();" translate>Dynamics</a>
+                <a class="btn btn-success btn-md active" ng-click="classes()" translate>Classes</a>
+                <a class="btn btn-success btn-md active"
+                   href="javascript:this.document.graph.conditions();" translate>Conditions</a>
+                <a class="btn btn-primary btn-md active"
+                   href="javascript:this.document.graph.up();" translate>Up</a>
+                <div class="paper" id="#paper" classgraph data="model"></div>
+            </div>
+        </div>
+    </div>
+</div>

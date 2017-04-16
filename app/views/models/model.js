@@ -60,13 +60,15 @@ angular.module('artisStudio.model', ['ngRoute'])
           modal.element.modal();
           modal.close.then(function (result) {
             modal.closed.then(function () {
-              var element = $scope.dynamics.find(function(value) { return value.name == result});
+              var element = $scope.dynamics.find(function (value) {
+                return value.name === result
+              });
 
-/*              if (element) {
+              /*              if (element) {
 
-              } else {
+               } else {
 
-              } */
+               } */
               localStorageService.set("dynamics", result);
               $location.path("/models/dynamics");
             });
@@ -74,9 +76,29 @@ angular.module('artisStudio.model', ['ngRoute'])
         });
       };
 
-      }])
+      $scope.classes = function () {
+        var definition = JSON.parse($scope.model.definition);
 
-  .directive('graph', ['$window', '$document', '$timeout', '$q', 'Joint',
+        ModalService.showModal({
+          templateUrl: 'classesModal.html',
+          controller: "ClassesModalController",
+          inputs: {
+            classes: definition.classes
+          }
+        }).then(function (modal) {
+          modal.element.modal();
+          modal.close.then(function (result) {
+            modal.closed.then(function () {
+              localStorageService.set("class", result.class_name);
+              $location.path("/class/" + model_id);
+            });
+          });
+        });
+      };
+
+    }])
+
+  .directive('modelgraph', ['$window', '$document', '$timeout', '$q', 'Joint',
     function ($window, $document, $timeout, $q, Joint) {
       return {
         restrict: 'EA',
@@ -93,8 +115,10 @@ angular.module('artisStudio.model', ['ngRoute'])
             }, true);
             scope.render = function (data) {
               if (data) {
-                $document[0].graph = new Graph(element[0], data.workspace_name, data.project_name, data.name, data.definition,
-                  data._id);
+                var definition = JSON.parse(data.definition);
+
+                $document[0].graph = new Graph(element[0], definition.structure, definition.classes, definition.project,
+                  definition.experiment);
               }
             }
           });
@@ -120,8 +144,25 @@ angular.module('artisStudio.model', ['ngRoute'])
     $scope.edit_dynamics = function () {
       close({
         name: $scope.model.dynamics,
-        definition: JSON.parse($scope.root.definition).dynamics[$scope.model.dynamics]},
-        500);
+        definition: JSON.parse($scope.root.definition).dynamics[$scope.model.dynamics]
+      }, 500);
     };
 
+  })
+
+  .controller('ClassesModalController', function ($scope, close, classes) {
+    $scope.classes = [];
+    for (var c in classes) {
+      $scope.classes.push(c);
+    }
+
+    $scope.close = function (result) {
+      close(result, 500);
+    };
+
+    $scope.edit = function (class_name) {
+      close({
+        class_name: class_name
+      }, 500);
+    }
   });
