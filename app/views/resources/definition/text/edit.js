@@ -1,18 +1,18 @@
 'use strict';
 
-angular.module('artisStudio.resourceEdit', ['ngRoute'])
+angular.module('artisStudio.textResourceEdit', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/resource/definition/:id', {
-      templateUrl: 'views/resources/definition/edit.html',
-      controller: 'ResourceEditCtrl',
+    $routeProvider.when('/resource/definition/text/:id', {
+      templateUrl: 'views/resources/definition/text/edit.html',
+      controller: 'TextResourceEditCtrl',
       access: {
         requiredLogin: true
       }
     });
   }])
 
-  .controller('ResourceEditCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location', '$http', 'Notification',
+  .controller('TextResourceEditCtrl', ['$scope', '$rootScope', '$routeParams', 'DataFactory', '$location', '$http', 'Notification',
     function ($scope, $rootScope, $routeParams, DataFactory, $location, $http, Notification) {
       var resource_id = $routeParams.id;
 

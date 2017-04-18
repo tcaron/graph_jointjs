@@ -35,7 +35,21 @@ angular.module('artisStudio.project', ['ngRoute'])
       };
 
       $scope.edit_resource_definition = function (resource_id) {
-        $location.path("/resource/definition/" + resource_id);
+        DataFactory.getData('resourcetypes/').then(function (data) {
+          var resource_types = data.data;
+
+          DataFactory.getData('resource/' + resource_id).then(function (data) {
+            var resource = data.data;
+
+            if (is_type(resource.type, "c++ file", resource_types) ||
+              is_type(resource.type, "cmake file", resource_types) ||
+              is_type(resource.type, "text file", resource_types)) {
+              $location.path("/resource/definition/text/" + resource_id);
+            } else if (is_type(resource.type, "devs diagram", resource_types)) {
+              $location.path("/resource/definition/devs/" + resource_id);
+            }
+          });
+        });
       };
 
       $scope.edit_resource = function (resource_id) {
@@ -179,4 +193,19 @@ var load_resources = function ($scope, DataFactory, project_id) {
       });
     });
   });
+};
+
+var is_type = function(resource_type, type, types)
+{
+  var found = false;
+  var index = 0;
+
+  while (!found && index < types.length) {
+    if (types[index].name === type) {
+      found = true;
+    } else {
+      ++index;
+    }
+  }
+  return found ? resource_type === types[index]._id : false;
 };
