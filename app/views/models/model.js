@@ -35,8 +35,9 @@ angular.module('artisStudio.model', ['ngRoute'])
           modal.element.modal();
           modal.close.then(function (result) {
             if (result) {
+              $scope.model.structure = $document[0].graph.model();
               $http.put($rootScope.urlBase + '/api/v1/model/' + model_id, {
-                model: $document[0].graph.model()
+                model: $scope.model
               }).success(function (data) {
                 Notification.success({message: 'Model updated.', delay: 8000});
               }).error(function (data) {
@@ -60,17 +61,16 @@ angular.module('artisStudio.model', ['ngRoute'])
           modal.element.modal();
           modal.close.then(function (result) {
             modal.closed.then(function () {
-              var element = $scope.dynamics.find(function (value) {
-                return value.name === result
-              });
+              if (typeof result === 'object') {
+                var element = $scope.dynamics.find(function (value) {
+                  return value.name === result
+                });
 
-              /*              if (element) {
-
-               } else {
-
-               } */
-              localStorageService.set("dynamics", result);
-              $location.path("/models/dynamics");
+                localStorageService.set("dynamics", result);
+                $location.path("/models/dynamics");
+              } else {
+                $document[0].graph.refresh();
+              }
             });
           });
         });
@@ -103,7 +103,6 @@ angular.module('artisStudio.model', ['ngRoute'])
       return {
         restrict: 'EA',
         scope: {
-          name: '=',
           data: '=',
           label: '@',
           onClick: '&'

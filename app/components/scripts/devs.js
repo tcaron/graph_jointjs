@@ -178,7 +178,7 @@ var Graph = function (e, m, c, p, exp) {
         }
       };
 
-    if (child.dynamics) {
+    if (child.dynamics || typeof child.dynamics === "string") {
       atomicModels[child.model] = new joint.shapes.devs.NewAtomic({
         position: geometry.position,
         size: geometry.size,
@@ -415,9 +415,72 @@ var Graph = function (e, m, c, p, exp) {
     }
   };
 
+  var build_name = function() {
+    var name = 'new_';
+    var index = 1;
+    var root = search_model();
+    var ok = false;
+
+    while (!ok) {
+      var i = 0;
+      var found = false;
+
+      while (!found && i < root.submodels.length) {
+        if (root.submodels[i].model === name + index) {
+          found = true;
+        } else {
+          ++i;
+        }
+      }
+      if (found) {
+        ++index;
+      } else {
+        ok = true;
+      }
+    }
+    return name + index;
+  };
+
 // public methods
   this.model = function() {
       return model;
+  };
+
+  this.add_atomic = function() {
+    var name = build_name();
+    var root = search_model();
+    var geometry = {
+        position: {
+          x: 50 + 20,
+          y: 50 + 20
+        },
+        size: {
+          width: 100,
+          height: 55
+        }
+      };
+    var atomic = new joint.shapes.devs.NewAtomic({
+      position: geometry.position,
+      size: geometry.size,
+      inPorts: [ 'in' ],
+      outPorts: [ 'out' ],
+      attrs: {
+        '.label': {text: name}
+      }
+    });
+
+    graph.addCell(atomic);
+    coupled.embed(atomic);
+    atomicModels[name] = atomic;
+    root.submodels.push({
+      model: name,
+      geometry: geometry,
+      conditions: [],
+      dynamics: "",
+      observables: "",
+      in: [ 'in' ],
+      out: [ 'out' ]
+    });
   };
 
   this.conditions = function () {
@@ -445,6 +508,16 @@ var Graph = function (e, m, c, p, exp) {
         atomicModels = {};
         build_graph(root);
       }
+    }
+  };
+
+  this.refresh = function () {
+    var root = search_model();
+
+    if (root) {
+      graph.clear();
+      atomicModels = {};
+      build_graph(root);
     }
   };
 
