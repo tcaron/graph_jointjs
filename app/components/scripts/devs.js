@@ -483,6 +483,40 @@ var Graph = function (e, m, c, p, exp) {
     });
   };
 
+  this.add_coupled = function() {
+    var name = build_name();
+    var root = search_model();
+    var geometry = {
+      position: {
+        x: 50 + 20,
+        y: 50 + 20
+      },
+      size: {
+        width: 100,
+        height: 55
+      }
+    };
+    var c = new joint.shapes.devs.NewCoupled({
+      position: geometry.position,
+      size: geometry.size,
+      inPorts: [ 'in' ],
+      outPorts: [ 'out' ],
+      attrs: {
+        '.label': {text: name}
+      }
+    });
+
+    graph.addCell(c);
+    coupled.embed(c);
+    atomicModels[name] = c;
+    root.submodels.push({
+      model: name,
+      geometry: geometry,
+      in: [ 'in' ],
+      out: [ 'out' ]
+    });
+  };
+
   this.conditions = function () {
     editor.set(experiment.conditions);
     $('#conditionsModal').modal('show');
