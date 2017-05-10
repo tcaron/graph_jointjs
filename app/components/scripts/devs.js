@@ -44,15 +44,15 @@ var Graph = function (e, m, c, p, exp) {
 
   joint.shapes.devs.NewAtomic = joint.shapes.devs.Atomic.extend({
     defaults: joint.util.deepSupplement({
-      markup: '<g class="rotatable"><g class="scalable"><rect class="body"/></g><text class="label"/><g class="inPorts"/><g class="outPorts"/></g>',
-      portMarkup: '<g class="port"><path class="port-body" d="M -5 -10 5 -10 5 10 -5 10 z"/></g>',
+      markup: '<g class="rotatable"><g class="scalable"><rect class="body"/></g><text class="label"/></g>',
+      portMarkup: '<path class="port-body" d="M -5 -10 5 -10 5 10 -5 10 z" magnet="true"/>',
       type: 'devs.NewAtomic'
     }, joint.shapes.devs.Atomic.prototype.defaults)
   });
   joint.shapes.devs.NewCoupled = joint.shapes.devs.Coupled.extend({
     defaults: joint.util.deepSupplement({
-      markup: '<g class="rotatable"><g class="scalable"><rect class="body"/></g><text class="label"/><g class="inPorts"/><g class="outPorts"/></g>',
-      portMarkup: '<g class="port"><path class="port-body" d="M -5 -10 5 -10 5 10 -5 10 z"/></g>',
+      markup: '<g class="rotatable"><g class="scalable"><rect class="body"/></g><text class="label"/></g>',
+      portMarkup: '<path class="port-body" d="M -5 -10 5 -10 5 10 -5 10 z" magnet="true"/>',
       type: 'devs.NewCoupled'
     }, joint.shapes.devs.Coupled.prototype.defaults)
   });
@@ -206,15 +206,15 @@ var Graph = function (e, m, c, p, exp) {
 
   var build_graph = function (root) {
     var geometry = {
-        position: {
-          x: 50,
-          y: 50
-        },
-        size: {
-          width: 800,
-          height: 700
-        }
-      };
+      position: {
+        x: 50,
+        y: 50
+      },
+      size: {
+        width: 800,
+        height: 700
+      }
+    };
     var i;
 
     coupled = new joint.shapes.devs.NewCoupled({
@@ -304,7 +304,7 @@ var Graph = function (e, m, c, p, exp) {
       if (root.submodels[i].model === name) {
         root.submodels[i].geometry = {position: position, size: size};
         found = true;
-      } else if(root.submodels[i].use && classes[root.submodels[i].use].model === name) {
+      } else if (root.submodels[i].use && classes[root.submodels[i].use].model === name) {
         root.submodels[i].geometry = {position: position, size: size};
         found = true;
       } else {
@@ -351,7 +351,6 @@ var Graph = function (e, m, c, p, exp) {
 
   var onCreateLink = function (link) {
     if (link.get('source').id && link.get('target').id) {
-
       var source = graph.get('cells').find(function (cell) {
         return cell.id === link.get('source').id;
       });
@@ -359,12 +358,21 @@ var Graph = function (e, m, c, p, exp) {
         return cell.id === link.get('target').id;
       });
 
-      if (source) {
-        console.log("SOURCE: " + source.attributes.attrs[".label"].text);
+      var root = search_model();
+
+      if (!root.connections.hasOwnProperty("internals")) {
+        root.connections["internals"] = [];
       }
-      if (target) {
-        console.log("TARGET: " + target.attributes.attrs[".label"].text);
-      }
+      root.connections.internals.push({
+        from: {
+          model: source.attributes.attrs[".label"].text,
+          port: link.get('source').port
+        },
+        to: {
+          model: target.attributes.attrs[".label"].text,
+          port: link.get('target').port
+        }
+      });
 
       link.set('router', {name: 'metro'});
       link.set('connector', {name: 'rounded'});
@@ -390,7 +398,8 @@ var Graph = function (e, m, c, p, exp) {
         if (root.submodels[index].model == atomic_model_name) {
           submodel = root.submodels[index];
           found = true;
-        } if (root.submodels[index].use == atomic_model_name) {
+        }
+        if (root.submodels[index].use == atomic_model_name) {
           // TODO: find class
         } else {
           ++index;
@@ -415,7 +424,7 @@ var Graph = function (e, m, c, p, exp) {
     }
   };
 
-  var build_name = function() {
+  var build_name = function () {
     var name = 'new_';
     var index = 1;
     var root = search_model();
@@ -442,28 +451,28 @@ var Graph = function (e, m, c, p, exp) {
   };
 
 // public methods
-  this.model = function() {
-      return model;
+  this.model = function () {
+    return model;
   };
 
-  this.add_atomic = function() {
+  this.add_atomic = function () {
     var name = build_name();
     var root = search_model();
     var geometry = {
-        position: {
-          x: 50 + 20,
-          y: 50 + 20
-        },
-        size: {
-          width: 100,
-          height: 55
-        }
-      };
+      position: {
+        x: 50 + 20,
+        y: 50 + 20
+      },
+      size: {
+        width: 100,
+        height: 55
+      }
+    };
     var atomic = new joint.shapes.devs.NewAtomic({
       position: geometry.position,
       size: geometry.size,
-      inPorts: [ 'in' ],
-      outPorts: [ 'out' ],
+      inPorts: ['in'],
+      outPorts: ['out'],
       attrs: {
         '.label': {text: name}
       }
@@ -478,12 +487,12 @@ var Graph = function (e, m, c, p, exp) {
       conditions: [],
       dynamics: "",
       observables: "",
-      in: [ 'in' ],
-      out: [ 'out' ]
+      in: ['in'],
+      out: ['out']
     });
   };
 
-  this.add_coupled = function() {
+  this.add_coupled = function () {
     var name = build_name();
     var root = search_model();
     var geometry = {
@@ -499,8 +508,8 @@ var Graph = function (e, m, c, p, exp) {
     var c = new joint.shapes.devs.NewCoupled({
       position: geometry.position,
       size: geometry.size,
-      inPorts: [ 'in' ],
-      outPorts: [ 'out' ],
+      inPorts: ['in'],
+      outPorts: ['out'],
       attrs: {
         '.label': {text: name}
       }
@@ -512,8 +521,8 @@ var Graph = function (e, m, c, p, exp) {
     root.submodels.push({
       model: name,
       geometry: geometry,
-      in: [ 'in' ],
-      out: [ 'out' ]
+      in: ['in'],
+      out: ['out']
     });
   };
 
