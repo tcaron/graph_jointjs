@@ -8,7 +8,6 @@ var jointGraph = (function() {
         this.states = {}; // tableau des états
         this.alreadyInit = false;
 
-
         this.adjustVertices = function (graph, cell) {
             // If the cell is a view, find its model.
             cell = cell.model || cell;
@@ -80,7 +79,7 @@ var jointGraph = (function() {
 
      	this.init = function(){
      		var self = this;
-     		var graph = new joint.dia.Graph();
+     		var graph = new joint.dia.Graph;
        		var paper = new joint.dia.Paper({
             el: $("#" + this.id),
             width: 800,
@@ -91,7 +90,6 @@ var jointGraph = (function() {
             linkPinning: false,
         	});
         	var uml = joint.shapes.uml;
-
             joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
             defaults: joint.util.deepSupplement({
                 markup: '<g class="rotatable"><g class="scalable"><rect class="body"/></g><text class="label"/><g class="inPorts"/><g class="outPorts"/></g>',
@@ -99,23 +97,74 @@ var jointGraph = (function() {
                 type: 'devs.Model'
             }, joint.shapes.devs.Model.prototype.defaults)
             });
-        joint.shapes.devs.NewModelView = joint.shapes.devs.ModelView;
-                
+            joint.shapes.devs.NewModelView = joint.shapes.devs.ModelView;
 
         for (var model in this.modelOptions){
-    
-        var this.modelOptions[model].name =     
-           new joint.shapes.devs.Model({
+
+          var name = new joint.shapes.devs.Model({
             position: {
-                x: 70,
-                y: 70
+                x: this.modelOptions[model].xposition,
+                y: this.modelOptions[model].yposition,
             },
             size: {
                 width: 450,
                 height: 500
             }
         });
-           graph.embed(this.modelOptions[model].name);
+            graph.addCell(name);
+          for(var state in  this.modelOptions[model].state){
+
+              var state = new uml.state({
+
+                  position: {
+                      x: 150,
+                      y: 200
+                  },
+                  size: {
+                      width: 100,
+                      height: 100
+                  },
+                  name: "WAIT",
+                  events: ["+@infini"],
+
+              });
+
+          }
+
+          for (var subModel in this.modelOptions[model].subModel){
+            console.log(this.modelOptions[model].subModel[subModel]);
+              var sub = new joint.shapes.devs.Model({
+                  position: {
+                      x: this.modelOptions[model].subModel[subModel].xposition,
+                      y: this.modelOptions[model].subModel[subModel].yposition,
+                  },
+                  size: {
+                      width: 50,
+                      height: 50
+                  }
+              });
+              graph.addCell(sub);
+              name.embed(sub);
+
+              for(var substate in  this.modelOptions[model].subModel.state){
+
+                  var state = new uml.state({
+
+                      position: {
+                          x: 150,
+                          y: 200
+                      },
+                      size: {
+                          width: 100,
+                          height: 100
+                      },
+                      name: "WAIT",
+                      events: ["+@infini"],
+
+                  });
+
+              }
+          }
         }
         
         var myAdjustVertices = _.partial(this.adjustVertices, graph);
