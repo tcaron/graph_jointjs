@@ -128,7 +128,8 @@ var jointGraph = (function() {
                   events: ["+@infini"],
 
               });
-
+              graph.embed(name);
+              graph.addCell(state);
           }
 
           for (var subModel in this.modelOptions[model].subModel){
@@ -148,7 +149,7 @@ var jointGraph = (function() {
 
               for(var substate in  this.modelOptions[model].subModel.state){
 
-                  var state = new uml.state({
+                  substate = new uml.state({
 
                       position: {
                           x: 150,
@@ -162,7 +163,8 @@ var jointGraph = (function() {
                       events: ["+@infini"],
 
                   });
-
+                  graph.addCell(substate);
+                  sub.embed(substate)
               }
           }
         }
