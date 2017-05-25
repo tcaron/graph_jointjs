@@ -5,7 +5,9 @@ var jointGraph = (function() {
         this.width = 800; //800 par défaut (si pas spécifié dans la config)
         this.height = 800; //800 par defaut (si pas spécifié dans la config)
         this.modelOptions = []; //tableau d'options pour creer un model
-        this.states = {}; // tableau des états
+        this.stateOptions = []; // tableau d'options pour creer un etat
+        this.linkOptions = []; // tableau d'options pour creer une connection
+        this.dashstroke = false; // lien en pointillé par défaut à false
         this.alreadyInit = false;
 
         this.adjustVertices = function (graph, cell) {
@@ -77,19 +79,162 @@ var jointGraph = (function() {
             return cell;
         }
 
+        var atomicModels = {};
+
+        this.initModel = function (model,graph,parent) {
+        var parent = parent || undefined ;
+        atomicModels[this.modelOptions[model]] =  new joint.shapes.devs.Model({
+                position: {
+                    x: this.modelOptions[model].x,
+                    y: this.modelOptions[model].y
+                },
+                size: {
+                    width: this.modelOptions[model].width,
+                    height: this.modelOptions[model].height
+                },
+                inPorts: [this.modelOptions[model].in],
+                outPorts: [this.modelOptions[model].out],
+                attrs: {
+                    '.label': {
+                        text: this.modelOptions[model].name ,
+                        'ref-x': .5,
+                        'ref-y': .0
+                    },
+                    rect: {
+                        fill: '#D5CECC'
+                    }
+                }
+            });
+
+         graph.addCell( atomicModels[this.modelOptions[model]]);
+         if(parent  != undefined) {
+             parent.embed(atomicModels[this.modelOptions[model]]);
+         }
+        }
+
+        var atomicLink={} ;
+        this.initConnection = function(graph, link, source, target, parent){
+            var parent = parent || undefined;
+            if ( source.id != target.id) {
+                atomicLink[this.linkOptions[link]] = new joint.shapes.uml.Transition({
+                    source: {id: source.id}, target: {id: target.id},
+                });
+                atomicLink[this.linkOptions[link]].label(0, {
+                    position: 0.5,
+                    attrs: {
+                        text: {
+                            text: this.linkOptions[link].label,
+                            'font-size': 14,
+                            'font-family': 'san-serif'
+                        }
+                    }
+                });
+                if (this.linkOptions[link].dashstroke){
+                    atomicLink[this.linkOptions[link]].attr({
+                        '.connection': {
+                            stroke: '#4b4a67',
+                            'stroke-width': 2,
+                            'stroke-dasharray': '5 4'
+                        },
+                    });
+                }
+            }
+            else {
+                atomicLink[this.linkOptions[link]] = this.LinkWithSameDestination(source,source,this.linkOptions[link].label, [{
+                    x: 350,
+                    y: 120
+                }, {
+                    x: 200,
+                    y: 250
+                }]);
+            }
+                graph.addCell( atomicLink[this.linkOptions[link]]);
+                if(parent  != undefined) {
+                    parent.embed(atomicLink[this.linkOptions[link]]);
+                }
+        }
+
+        var atomicState = {};
+
+        this.initState = function(graph,state,parent) {
+            var parent = parent || undefined ;
+            atomicState[this.stateOptions[state]] = new joint.shapes.uml.State({
+                position: {
+                    x:this.stateOptions[state].x ,
+                    y:this.stateOptions[state].y
+                },
+                size: {
+                    width: this.stateOptions[state].width,
+                    height: this.stateOptions[state].height
+                },
+                name: this.stateOptions[state].name ,
+                events: this.stateOptions[state].events,
+            });
+            graph.addCell(atomicState[this.stateOptions[state]]);
+            console.log( atomicState[this.stateOptions[state]]);
+            if(parent  != undefined) {
+                parent.embed(atomicState[this.stateOptions[state]]);
+            }
+        }
+
+        this.getModelByName = function(name){
+            var _model;
+            for ( var model in this.modelOptions ){
+                    if (atomicModels[this.modelOptions[model]].attributes.attrs['.label'].text == name) {
+                        return atomicModels[this.modelOptions[model]];
+                }
+            }
+        };
+
+        this.getElementByName = function(name){
+         var _element = undefined;
+            for(var model in this.modelOptions){
+                if (atomicModels[this.modelOptions[model]].attributes.attrs['.label'].text == name) {
+                    _element = atomicModels[this.modelOptions[model]];
+                }
+            }
+            for(var state in this.stateOptions){
+                if (atomicState[this.stateOptions[state]].attributes.name == name) {
+                    _element = atomicState[this.stateOptions[state]];
+                }
+            }
+
+            return _element ;
+        }
      	this.init = function(){
      		var self = this;
      		var graph = new joint.dia.Graph;
+     		var atomicModel = [];
        		var paper = new joint.dia.Paper({
             el: $("#" + this.id),
-            width: 800,
-            height: 800,
-            model: graph,
-            gridSize: 1,
-            snapLinks: true,
-            linkPinning: false,
-        	});
-        	var uml = joint.shapes.uml;
+                width: this.width,
+                height: this.height,
+                gridSize: 1,
+                model: graph,
+                snapLinks: true,
+                linkPinning: false,
+                embeddingMode: true,
+                highlighting: {
+                    'default': {
+                        name: 'stroke',
+                        options: {
+                            padding: 6
+                        }
+                    },
+                    'embedding': {
+                        name: 'addClass',
+                        options: {
+                            className: 'highlighted-parent'
+                        }
+                    }
+                },
+                validateEmbedding: function (childView, parentView) {
+                    return parentView.model instanceof joint.shapes.devs.Coupled;
+                },
+                validateConnection: function (sourceView, sourceMagnet, targetView, targetMagnet) {
+                    return sourceMagnet != targetMagnet;
+                }
+            });
             joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
             defaults: joint.util.deepSupplement({
                 markup: '<g class="rotatable"><g class="scalable"><rect class="body"/></g><text class="label"/><g class="inPorts"/><g class="outPorts"/></g>',
@@ -99,80 +244,28 @@ var jointGraph = (function() {
             });
             joint.shapes.devs.NewModelView = joint.shapes.devs.ModelView;
 
-        for (var model in this.modelOptions){
-
-          var name = new joint.shapes.devs.Model({
-            position: {
-                x: this.modelOptions[model].xposition,
-                y: this.modelOptions[model].yposition,
-            },
-            size: {
-                width: 450,
-                height: 500
+            for(var model in this.modelOptions){
+                if (this.modelOptions[model].parent != undefined) {
+                    this.initModel(model, graph, this.getModelByName(this.modelOptions[model].parent));
+                }
+                else{ this.initModel(model, graph); }
             }
-        });
-            graph.addCell(name);
-          for(var state in  this.modelOptions[model].state){
+            for (var state in this.stateOptions){
+                if (this.stateOptions[state].parent != undefined) {
+                    this.initState(graph,state,this.getModelByName(this.stateOptions[state].parent));
+                }
+                else{ this.initState(graph,state); }
+            }
 
-              var state = new uml.state({
-
-                  position: {
-                      x: 150,
-                      y: 200
-                  },
-                  size: {
-                      width: 100,
-                      height: 100
-                  },
-                  name: "WAIT",
-                  events: ["+@infini"],
-
-              });
-              graph.embed(name);
-              graph.addCell(state);
-          }
-
-          for (var subModel in this.modelOptions[model].subModel){
-            console.log(this.modelOptions[model].subModel[subModel]);
-              var sub = new joint.shapes.devs.Model({
-                  position: {
-                      x: this.modelOptions[model].subModel[subModel].xposition,
-                      y: this.modelOptions[model].subModel[subModel].yposition,
-                  },
-                  size: {
-                      width: 50,
-                      height: 50
-                  }
-              });
-              graph.addCell(sub);
-              name.embed(sub);
-
-              for(var substate in  this.modelOptions[model].subModel.state){
-
-                  substate = new uml.state({
-
-                      position: {
-                          x: 150,
-                          y: 200
-                      },
-                      size: {
-                          width: 100,
-                          height: 100
-                      },
-                      name: "WAIT",
-                      events: ["+@infini"],
-
-                  });
-                  graph.addCell(substate);
-                  sub.embed(substate)
-              }
-          }
-        }
-        
+            for (var link in this.linkOptions){
+                if (this.linkOptions[link].parent != undefined) {
+                    this.initConnection(graph,link,this.getElementByName(this.linkOptions[link].source),this.getElementByName(this.linkOptions[link].target),this.getModelByName(this.linkOptions[link].parent));
+                }
+                else{ this.initConnection(graph,link,this.getElementByName(this.linkOptions[link].source),this.getElementByName(this.linkOptions[link].target)); }
+            }
         var myAdjustVertices = _.partial(this.adjustVertices, graph);
         this.alreadyInit = true;
         }	
-    
 
         this.setParam = function(param, valeur, necessary) {
         	if (typeof necessary === "undefined") necessary = false;
@@ -198,13 +291,14 @@ var jointGraph = (function() {
         {
             jointGraphCollection[id].setParam('id',params['id'],true);
             jointGraphCollection[id].setParam('width',params['width']);
-             jointGraphCollection[id].setParam('height',params['height']);
+            jointGraphCollection[id].setParam('height',params['height']);
             jointGraphCollection[id].setParam('modelOptions',params['modelOptions']);
+            jointGraphCollection[id].setParam('stateOptions',params['stateOptions']);
+            jointGraphCollection[id].setParam('linkOptions',params['linkOptions']);
             jointGraphCollection[id].setParam('alreadyInit',params['alreadyInit']);
         }
         if (!jointGraphCollection[id].alreadyInit) jointGraphCollection[id].init();
         return jointGraphCollection[id];
     }
-
 
 })();
